@@ -4,17 +4,12 @@ import VueRouter from 'vue-router'
 import Vuelidate from 'vuelidate'
 import store from './store'
 
-import CustomerList from './components/page/dictionary/customer/CustomerList'
-import EmployeeList from './components/page/dictionary/employee/EmployeeList'
+import StoreList from './components/page/StoreList'
 
 const routes = [
 	{
-		path: '/danh-muc/khach-hang',
-		component: CustomerList
-	},
-	{
-		path: '/danh-muc/nhan-vien',
-		component: EmployeeList
+		path: '/danh-muc/cua-hang',
+		component: StoreList
 	}
 ]
 

@@ -1,0 +1,111 @@
+.footer {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    background-color: #ffffff;
+    height: 54px;
+    padding: 10px;
+    border-top: solid 1px #d0d0d0;
+    display: flex;
+    align-items: center;
+    min-width: 1130px;
+}
+
+.item-footer {
+    border: solid 1px #d0d0d0;
+    background-color: #ffff;
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+    border-radius: 3px;
+    margin-left: 2px;
+}
+
+.item-footer:disabled {
+    cursor: default;
+    opacity: 0.4;
+}
+
+.page-load {
+    border: solid 1px #636dde;
+}
+
+.footer>form {
+    padding: 0px 4px;
+    width: 160px;
+    height: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer form>span {
+    width: 35px;
+}
+
+.footer form>label {
+    width: 35px;
+}
+
+.footer>select {
+    width: 46px;
+    height: 24px;
+    border: solid 1px #d0d0d0;
+    padding-left: 4px;
+    border-radius: 3px;
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/arrow-down-line.png') no-repeat center right;
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+    margin-left: 3px;
+    background-color: #ffffff;
+}
+
+.footer>select:focus {
+    outline: 0;
+}
+
+.img-footer {
+    width: 16px;
+    height: 16px;
+}
+
+.img-page-first {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -650px -152px;
+}
+
+.img-page-prev {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -700px -152px;
+}
+
+.img-page-next {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -750px -152px;
+}
+
+.img-page-last {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -800px -152px;
+}
+
+.img-page-load {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -850px -127px;
+}
+
+.footer input {
+    width: 48px;
+    height: 24px;
+    border: solid 1px #d0d0d0;
+    padding: 4px 6px;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.footer input::-webkit-inner-spin-button, 
+.footer input::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.footer .show-result {
+    margin-left: auto;
+}

@@ -1,0 +1,143 @@
+.dialog-remove {
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.dialog-remove .my-dialog {               
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: black;
+    opacity: 0.5;
+}
+
+.dialog-remove .remove-content {               
+    position: absolute;
+    width: 400px;
+    height: auto;
+    background-color: white;
+    top: calc(50% - 400px);
+    left: calc(50% - 300px);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.remove-content .remove-header {
+    width: 100%;
+    height: 41px;
+    box-sizing: border-box;
+    padding: 10px 14px;
+    background-color: #F0F0F0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remove-header .title {
+    padding: 0;
+    color: #212121;
+    font-size: 16px;
+    font-weight: 600;
+    user-select: none;
+}
+
+.remove-header .icon-times {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -1125px -152px;
+    width: 16px;
+    height: 16px;
+}
+
+.icon-times:hover {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -1125px -127px;
+    cursor: pointer;
+}
+
+.remove-content .remove-body {
+    min-height: 64px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #d0d0d0;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+.remove-body .text-content {
+    flex: 1;
+    padding-left: 10px;
+}
+
+.remove-body .icon-question {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/icon-popup.png') no-repeat -165px 0;
+    height: 44px;
+    width: 44px;
+}
+
+.remove-content .remove-footer {
+    height: 50px;
+    padding: 8px 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.remove-footer button {
+    height: 32px;
+    padding: 7px;
+}
+
+button.single-trash {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #df4646;
+    background-color: #df4646;
+    border-radius: 3px;
+}
+
+.single-trash span {
+    color: white;
+    font-weight: 600;
+    padding-right: 4px;
+}
+
+.single-trash .icon-trash {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/delete-white.png') no-repeat 4px 4px;
+    width: 24px;
+    height: 24px;
+}
+
+.single-trash:hover {
+    cursor: pointer;
+    background-color: #df4646;
+    opacity: 0.96;
+}
+
+button.single-cancel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+    background-color: #fff;
+}
+
+.single-cancel span {
+    color: #2b3173;
+    font-weight: 600;
+    padding: 0 5px
+}
+
+.single-cancel .icon-cancel {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -250px -127px;
+    height: 16px;
+    width: 16px;
+}
+
+.single-cancel:hover {
+    cursor: pointer;
+}

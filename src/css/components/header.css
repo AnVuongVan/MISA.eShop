@@ -1,0 +1,190 @@
+.header {
+    width: 100%;
+    height: 52px;
+    background-color: #ffff;
+    display: flex;
+    position: relative;
+    min-width: 1280px;
+}
+
+
+/* Chỉnh sửa giao diện logo cukcuk */
+
+.logo {
+    height: 52px;
+    width: 150px;
+    background-color: var(--primary-color);
+    padding-top: 3px;
+}
+
+.icon-logo {
+    background-image: url('https://misard.mshopkeeper.vn/Logo_Full_White.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100%;
+}
+
+
+/* Chỉnh sửa giao diện title */
+
+.title {
+    position: relative;
+    color: black;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 52px;
+    padding-left: 21px;
+}
+
+.sub-title {
+    position: absolute;
+    right: 520px;
+    width: 140px;
+    height: 26px;
+    top: 13px;
+    border-right: 1px solid var(--content-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sub-title>span {
+    color: #636dde;
+    font-weight: 500;
+}
+
+.sub-title>span:hover {
+    color: #6b6f9d;
+    cursor: pointer;
+}
+
+
+/* Chỉnh ô select */
+
+.list-shop {
+    position: absolute;
+    right: 335px;
+    width: 160px;
+    height: 30px;
+    padding: 7px;
+    line-height: 52px;
+    border: 1px solid #c3c3c3;
+    top: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 3px;
+}
+
+.list-shop:hover {
+    cursor: pointer;
+}
+
+.list-shop>p {
+    width: 136px;
+    text-align: center;
+}
+
+.list-shop .small-arrow {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/arrow-down-line.png') no-repeat center center;
+    width: 24px;
+    height: 30px;
+}
+
+
+/* Chỉnh sửa giao diện user-panel */
+
+.user-panel {
+    color: white;
+    position: absolute;
+    right: 146px;
+    display: flex;
+    width: 174px;
+    line-height: 52px;
+}
+
+.icon-user-panel {
+    background: url('https://misard.mshopkeeper.vn/backendg2/api/Image?id=&type=0&w=50&h=50&CompanyCode=misard') no-repeat white center center;
+    background-size: contain;
+    width: 28px;
+    height: 28px;
+    border-radius: 28px;
+    margin: 12px 8px 12px 5px;
+}
+
+.user-panel>p {
+    color: black;
+    font-weight: 600;
+}
+
+.icon-arrow-user {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/arrow-down-line.png') no-repeat center center;
+    width: 28px;
+}
+
+
+/* Chỉnh sửa giao diện support */
+
+.support {
+    height: 52px;
+    width: 46px;
+    position: absolute;
+    right: 100px;
+    padding: 7px;
+    background-color: #2b3173;
+}
+
+.support-icon {
+    background-image: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/misasupport_1.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 48px;
+    width: 48px;
+    position: absolute;
+    top: 0px;
+    left: -2px;
+}
+
+
+/* Chỉnh sửa giao diện notification */
+
+.notification {
+    height: 46px;
+    width: 46px;
+    position: absolute;
+    top: 3px;
+    right: 54px;
+    padding: 7px;
+}
+
+.notification-icon {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/notify-18.png') no-repeat center center;
+    height: 22px;
+    width: 32px;
+    position: absolute;
+    top: 12px;
+    left: 7px;
+}
+
+
+/* Chỉnh sửa giao diện information */
+
+.info {
+    height: 46px;
+    width: 46px;
+    position: absolute;
+    top: 3px;
+    right: 8px;
+    padding: 7px;
+    border-left: 1px solid var(--content-color);
+}
+
+.info-icon {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/icon_help_18.png') no-repeat center center;
+    height: 22px;
+    width: 32px;
+    position: absolute;
+    top: 12px;
+    left: 10px;
+}

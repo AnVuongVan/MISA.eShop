@@ -32,27 +32,11 @@ export default {
 
 <style>
     @import './css/main.css';
-	@import './css/components/content.css';
-	@import './css/components/button.css';
-	@import './css/components/input.css';
-	@import './css/components/grid.css';
-	@import './css/components/dialog.css';
-	@import './css/components/popup.css';
-	@import './css/components/alert.css';
-
-	.text-align-right {
-		text-align: right;
-	}
-
-	.text-align-center {
-		text-align: center;
-	}
-
-	input.border-red {
-		border: 1px solid #ff4747;
-	}
-
-	.row-selected {
-		background-color: #01916026;
-	}
+	@import './css/components/header.css';
+	@import './css/components/menu.css';
+	@import './css/components/toolbar.css';
+	@import './css/components/table.css';
+	@import './css/components/footer.css';
+	@import './css/components/my-dialog.css';
+	@import './css/components/remove-dialog.css';
 </style>

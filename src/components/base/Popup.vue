@@ -1,20 +1,26 @@
 <template>
-    <div class="m-alert-popup">
-        <div class="center">
-            <span class="title">Xoa ban ghi</span>
-
-            <p class="mb-4"> 
-                <img src="http://100dayscss.com/codepen/alert.png" width="36" height="30" />
-                <span>Ban co chac chan muon xoa nhung ban ghi nay hay khong?</span>
-            </p>  
-            
-            <div class="m-popup-footer">
-                <button class="cancel" @click="hidePopup">Huy</button>
-                <button class="remove" @click="removeCustomer">Xoa</button>
-            </div> 
-
-            <span class="times" @click="hidePopup"></span>
-        </div>  
+    <div class="dialog-remove">
+        <div class="my-dialog"></div>
+        <div class="remove-content">
+            <div class="remove-header">
+                <div class="title">Xoa du lieu</div>
+                <div class="icon-times"></div>
+            </div>
+            <div class="remove-body">
+                <div class="icon-question"></div>
+                <div class="text-content">Ban co chac chan muon xoa cua hang <b style="color: #df4646;">Vuong Van An&nbsp;-&nbsp;(KH050699)</b> khong?</div>
+            </div>
+            <div class="remove-footer">
+                <button class="single-trash">
+                    <div class="icon-trash"></div>
+                    <span>Xoa</span>
+                </button>
+                <button class="single-cancel">
+                    <div class="icon-cancel"></div>
+                    <span>Hủy bỏ</span>
+                </button>
+            </div>
+        </div>
     </div>
 </template>
 

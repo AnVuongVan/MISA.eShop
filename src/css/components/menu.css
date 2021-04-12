@@ -1,0 +1,71 @@
+.menu {
+    width: 150px;
+    background-color: var(--default-color);
+    position: absolute;
+    height: calc(100% - 52px);
+    top: 52px;
+}
+
+.menu-item-wrap {
+    width: 150px;
+    height: 100%;
+    /* overflow: auto; */
+}
+
+.menu-item {
+    display: block;
+    color: white;
+    text-decoration: none;
+    width: 100%;
+    height: 40px;
+    position: relative;
+    opacity: 0.8;
+}
+
+.menu-item:hover {
+    background-color: var(--primary-color);
+    opacity: 1;
+    cursor: pointer;
+}
+
+.item {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/slibarmenu.png?v=1') no-repeat -28px 6px;
+    width: 26px;
+    height: 38px;
+    position: absolute;
+    left: 8px;
+    top: 2px;
+}
+
+.item2 {
+    background-position: -28px -273px
+}
+
+.item3 {
+    background-position: -28px -194px;
+}
+
+.item4 {
+    background-position: -28px -233px;
+}
+
+.item5 {
+    background-position: -28px -314px;
+}
+
+.item6 {
+    background-position: -28px -383px;
+}
+
+.item7 {
+    background-position: -28px -418px;
+}
+
+.item8 {
+    background-position: -28px -348px;
+}
+
+.menu-item>p {
+    line-height: 40px;
+    padding-left: 40px;
+}

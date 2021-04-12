@@ -1,0 +1,249 @@
+.m-dialog {
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.m-dialog .m-modal {               
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: black;
+    opacity: 0.5;
+}
+
+.m-dialog .m-content {               
+    position: absolute;
+    width: 685px;
+    height: auto;
+    background-color: white;
+    top: calc(50% - 400px);
+    left: calc(50% - 300px);
+    border-radius: 3px;
+}
+
+.m-content .dialog-header {
+    width: 100%;
+    height: 41px;
+    box-sizing: border-box;
+    padding: 10px 14px;
+    background-color: #F0F0F0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dialog-header .title {
+    padding: 0;
+}
+
+.dialog-header .icon-times {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -1125px -152px;
+    width: 16px;
+    height: 16px;
+}
+
+.icon-times:hover {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -1125px -127px;
+    cursor: pointer;
+}
+
+.m-content .dialog-content {
+    padding: 14px;
+}
+
+.dialog-content .children-input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+
+.children-input label,
+.half-children-input label {
+    width: 132px;
+}
+
+.children-input input { 
+    flex: 1;
+    height: 34px;
+    padding: 5px 10px;
+    border: 1px solid #d0d0d0;
+    border-radius: 3px;
+}
+
+.children-input textarea {
+    flex: 1;
+    padding: 5px 10px;
+    border: 1px solid #d0d0d0;
+    border-radius: 3px;
+    resize: none;
+}
+
+.children-input textarea:focus,
+.children-input input:focus {
+    outline: 0;
+    border: 1px solid #6b6f9d;
+}
+
+.half-children-input {
+    display: flex;
+    align-items: center;
+}
+
+.half-children-input select {
+    width: 191px;
+    height: 35px;
+    border: 1px solid #d0d0d0;
+    border-radius: 3px;
+    padding: 5px 1px 4px 8px;
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/arrow-down-line.png') no-repeat center right;
+    appearance:none;
+}
+
+.half-children-input select:focus {
+    outline: none;
+}
+
+.half-children-input select:hover {
+    cursor: pointer;
+}
+
+.m-content .dialog-footer {
+    height: 59px;
+    padding: 12px 14px;
+    border-top: 1px solid #d0d0d0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dialog-footer button {
+    height: 35px;
+    padding: 7px;
+}
+
+button.single-help {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+    background-color: white;
+    border-radius: 3px;
+}
+
+.single-help .icon-help {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/help.png') no-repeat center center;
+    height: 16px;
+    width: 16px;
+}
+
+.single-help span {
+    padding: 0 5px;
+    color: #2b3173;
+    font-weight: 600;
+}
+
+button.single-help:hover {
+    background-color: #e5e6eb;
+    cursor: pointer;
+}
+
+.dialog-footer-right {
+    display: flex;
+}
+
+.dialog-footer-right .single-save {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2b3173;
+    border: 1px solid #2b3173;
+    border-radius: 3px;
+}
+
+.single-save span {
+    color: white;
+    font-weight: 600;
+    padding: 0 5px;
+}
+
+.single-save .icon-save {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -325px -127px;
+    height: 16px;
+    width: 16px;
+    margin-right: 3px;
+}
+
+.single-save:hover {
+    background-color: #6b6f9d;
+    cursor: pointer;
+}
+
+.dialog-footer-right .multiple-save-add {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 3px;
+    border: 1px solid #2b3173;
+    background-color: white;
+    margin-left: 6px;
+}
+
+.multiple-save-add span {
+    color: #2b3173;
+    font-weight: 600;
+    padding: 0 5px;
+}
+
+.multiple-save-add .icon-save-add{
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -25px -127px;
+    height: 16px;
+    width: 16px;
+    margin-right: 3px;
+}
+
+.multiple-save-add:hover {
+    cursor: pointer;
+}
+
+.multiple-save-add span:hover {
+    color: #6b6f9d;
+}
+
+.dialog-footer-right .single-close {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 3px; 
+    background-color: white;
+    border: none;
+    margin-left: 6px;
+    transition: all 0.3s ease-in;
+}
+
+.single-close span {
+    color: #2b3173;
+    font-weight: 600;
+    padding: 0 5px;
+}
+
+.single-close .icon-close {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -250px -127px;
+    height: 16px;
+    width: 16px;
+    margin-right: 3px;
+}
+
+.single-close:hover {
+    border: 1px solid #2b3173;
+    cursor: pointer;
+}
+
+.dialog-footer-right button:focus {
+    outline: none;
+}

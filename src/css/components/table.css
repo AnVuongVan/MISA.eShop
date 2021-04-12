@@ -1,0 +1,141 @@
+.table-content {
+    overflow: auto;
+    height: calc(100% - 98px);
+    width: 100%;
+    min-width: 1050px;
+}
+
+.main-table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 1050px;
+}
+
+.main-table thead {
+    height: 64px;
+    width: 100%;
+}
+
+.main-table th {
+    position: sticky;
+    top: -1px;
+    background-color: #e5e6eb;
+    border-right: 1px solid #d0d0d0;
+    border-left: 1px solid #d0d0d0;
+}
+
+.main-table th:first-child,
+tbody tr td:first-child,
+.main-table th:last-child,
+tbody tr td:last-child {
+    border-right: none;
+    border-left: none;
+}
+
+th span {
+    height: 32px;
+    display: inline-block;
+    text-align: center;
+    line-height: 32px;
+    font-weight: 600;
+}
+
+th .search-box {
+    display: flex;
+    padding: 0 1px;
+    background-color: #ffff;
+    /* position: relative;
+    bottom: -6px; */
+}
+
+th select {
+    line-height: 34px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-left: 1px solid #d0d0d0;
+    border-right: 1px solid #d0d0d0;
+    border-top: none;
+    border-bottom: none;
+    width: 32px;
+    height: 34px;
+    text-align-last: center;
+    padding-top: 5px;
+}
+
+th select{
+    outline: 0;
+}
+
+.search-box input {
+    height: 34px;
+    flex: 1;
+    border: none;
+    padding: 5px 10px 1px;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-left: 1px solid #636dde;
+    border-right: 1px solid #636dde;
+}
+
+.checkBox {
+    width: 40px;
+    padding: 10px;
+}
+
+td input[type="checkbox"] {
+    float: left;
+    margin: 0 auto;
+    width: 100%;
+}
+
+td input[type=checkbox]:before,
+.checkBox input[type=checkbox]:before {
+    content: "";
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/uncheck.png') no-repeat center center;
+    margin: 0 auto;
+    width: 100%;
+}
+
+td input[type=checkbox]:checked:before,
+.checkBox input[type=checkbox]:checked:before {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/check.png') no-repeat center center;
+}
+
+.status {
+    width: 150px;
+}
+
+.status select {
+    width: 100%;
+    border: none;
+    padding: 0 10px;
+}
+
+.main-table>tbody {
+    height: calc(100% - 55px);
+    width: 100%;
+}
+
+.main-table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.main-table tbody tr:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
+.main-table td {
+    padding: 7px 10px 6px 10px;
+    align-items: center;
+    border: 1px solid #d0d0d0;
+    height: 35px;
+    max-width: 200px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

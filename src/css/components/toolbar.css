@@ -1,0 +1,82 @@
+.right-page {
+    position: absolute;
+    left: 150px;
+    padding: 10px;
+    width: calc(100% - 150px);
+    height: calc(100% - 52px);
+    min-width: 1130px;
+    background-color: var(--content-color);
+    outline: 1px solid #d0d0d0;
+    outline-offset: -10px;
+    z-index: 1;
+}
+
+.toolbar {
+    width: 100%;
+    height: 36px;
+    display: flex;
+    background-color: var(--default-color);
+    min-width: 1050px;
+}
+
+.item-toolbar {
+    position: relative;
+    background-color: var(--default-color);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    line-height: 36px;
+    width: auto;
+    padding: 0 10px;
+    align-items: center;
+    justify-content: space-between;
+    border-right: 1px solid #190472;
+}
+
+.item-toolbar:hover {
+    cursor: pointer;
+    background-color: #6b6f9d;
+}
+
+.item-toolbar:focus {
+    outline: none;
+}
+
+.item-toolbar span {
+    color: white;
+    padding: 0 5px;
+}
+
+.img {
+    height: 16px;
+    width: 16px;
+    margin-right: 3px;
+}
+
+.img-add {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -150px -203px;
+}
+
+.img-replication {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -54px -203px;
+}
+
+.img-modify {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -78px -204px;
+}
+
+.img-delete {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -102px -204px;
+}
+
+.img-load {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -126px -202px;
+}
+
+.img-import {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -178px -128px;
+}
+
+.img-export {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -127px -128px;
+}
