@@ -126,6 +126,10 @@ button.single-cancel {
     background-color: #fff;
 }
 
+button.single-cancel:focus {
+    outline: none;
+}
+
 .single-cancel span {
     color: #2b3173;
     font-weight: 600;

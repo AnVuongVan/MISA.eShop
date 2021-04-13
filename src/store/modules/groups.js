@@ -1,25 +1,27 @@
 import axios from 'axios'
 
-//const API_URL = 'http://api.manhnv.net/api/customergroups';
-const API_URL = 'http://localhost:62509/api/v1/customergroups';
+const API_COUNTRY_URL = 'http://localhost:62509/api/v1/countries';
+//const API_PROVINCE_URL = 'http://localhost:62509/api/v1/provinces/country';
+//const API_DISTRICT_URL = 'http://localhost:62509/api/v1/districts/province';
+//const API_WARD_URL = 'http://localhost:62509/api/v1/wards/district';
 
 const state = {
-    groups: [],
+    countries: [],
 };
 
 const getters = {
-    allGroups: state => state.groups,
+    allCountries: state => state.countries,
 };
 
 const actions = {
-    async fetchCustomerGroups({ commit }) {
-        const response = await axios.get(API_URL);
-        commit('setCustomerGroups', response.data);
+    async fetchCountries({ commit }) {
+        const response = await axios.get(API_COUNTRY_URL);
+        commit('setCountries', response.data);
     },
 };
 
 const mutations = {
-    setCustomerGroups: (state, groups) => state.groups = groups,
+    setCountries: (state, countries) => state.countries = countries,
 };
 
 export default {

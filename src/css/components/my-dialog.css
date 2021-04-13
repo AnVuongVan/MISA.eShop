@@ -94,6 +94,7 @@
 .half-children-input {
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .half-children-input select {
@@ -107,8 +108,57 @@
 }
 
 .half-children-input select:focus {
-    outline: none;
+    outline: 1px solid #6b6f9d;
 }
+
+/* custom drop down list */
+.half-children-input .select-content {
+    position: relative;
+}
+
+span.icon-arrow {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/arrow-down-line.png') no-repeat center right;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+}
+
+span.icon-arrow:hover {
+    cursor: pointer;
+}
+
+.select-options {
+    border: 1px solid #d0d0d0;
+    list-style: none;
+    border-radius: 3px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    box-shadow: 2px 3px 2px rgba(68, 68, 68, 0.4);
+    /* display: none; */
+    z-index: 10;
+    height: 150px;
+    overflow: auto;
+}
+
+.select-options li {
+    padding: 8px;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+.select-options li:hover {
+    cursor: pointer;
+    background-color: #6b6f9d;
+    color: white;
+}
+
+.select-options li:last-child {
+    border-bottom: none;
+}
+/* end */
 
 .half-children-input select:hover {
     cursor: pointer;

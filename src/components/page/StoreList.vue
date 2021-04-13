@@ -11,11 +11,11 @@
                     <div class="img img-replication"></div>
                     <span>Nhân bản</span>
                 </button>
-                <button class="item-toolbar item-toolbar-modify">
+                <button class="item-toolbar item-toolbar-modify" @click="editStore">
                     <div class="img img-modify"></div>
                     <span>Sửa</span>
                 </button>
-                <button class="item-toolbar item-toolbar-delete">
+                <button class="item-toolbar item-toolbar-delete" @click="removeStore">
                     <div class="img img-delete"></div>
                     <span>Xóa</span>
                 </button>
@@ -99,15 +99,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr v-for="store in allStores" :key="store.StoreId" @click="selectedRow(store)"
+                        @dblclick="onDoubleClick(store)" :class="{'row-selected': store.StoreId === storeId }">
                             <td>
-                                <input type="checkbox"/>
+                                <input type="checkbox" @change="getChecked(store.StoreId, $event)"/>
                             </td>
-                            <td>KH001</td>
-                            <td>Sửa chữa Laptop 24/7</td>
-                            <td>20 Lê Thanh Nghị, Hai Bà Trưng, Hà Nội</td>
-                            <td>0976412509</td>
-                            <td>Đang hoạt động</td>
+                            <td v-text="store.StoreCode"></td>
+                            <td v-text="store.StoreName"></td>
+                            <td v-text="store.Address"></td>
+                            <td v-text="store.PhoneNumber"></td>
+                            <td>
+                                <span v-if="store.Status == 1">Đang hoạt động</span>
+                                <span v-else>Ngừng hoạt động</span>
+                            </td>                           
                         </tr>
                     </tbody>
                 </table>
@@ -119,56 +123,44 @@
             <!-- End of footer -->
         </div>
 
-        <!-- <span v-if="statusListDetail">
-            <StoreListDetail @statusModal="statusModal" @statusAlert="statusAlert" :customer="item" />
-        </span> -->
         <span v-if="statusListDetail">
-            <StoreListDetail @statusModal="statusModal" />
+            <StoreListDetail @statusModal="statusModal" :store="item" />
         </span>
 
-        <!-- <span v-if="statusShowPopup">
+        <span v-if="statusShowPopup">
             <Popup @statusPopup="statusPopup" @isDeleted="isDeleted" :listIds="listIds" />
         </span>
-
-        <span v-if="statusAlertNotify">
-            <AlertSuccess :statusAlertSuccess="statusAlertNotify" @isHide="statusAlert" />
-        </span> -->
     </div>
 </template>
 
 <script>
-// import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import StoreListDetail from './StoreListDetail';
 // import CustomerFilter from './CustomerFilter'
 
 import Paging from '../base/Paging';
-// import Popup from '../../../base/Popup';
-// import AlertSuccess from '../../../base/AlertSuccess';
-
-//import moment from 'moment'
+import Popup from '../base/Popup';
 
 export default{
     name: 'StoreList',
     components: {
         StoreListDetail,
         // CustomerFilter,
-        Paging
-        // Popup,
-        // AlertSuccess,
+        Paging,
+        Popup,
     },
     data() {
         return {
             statusListDetail: false,
-            // statusShowPopup: false,
-            // statusAlertNotify: '',
-            // item: {},
-            // listIds: [],
-            // error: false
+            statusShowPopup: false,
+            item: {},
+            listIds: [],
+            storeId: ''
         }
     },
     methods: {
-        //...mapActions(['fetchCustomers']),
-        //show when add new customer
+        ...mapActions(['fetchStores']),
+        //show when add new store
         showListDetail() {
             this.item = {};
             this.statusListDetail = !this.statusListDetail;
@@ -177,59 +169,54 @@ export default{
         statusModal(params) {
             this.statusListDetail = params;
         },
-        // statusPopup(params) {
-        //     this.statusShowPopup = params;
-        // },
-        // isDeleted(params) {
-        //     //if customer removed -> set empty list
-        //     if (params) {
-        //         this.listIds = [];
-        //         this.statusAlertNotify = 'DELETE';
-        //     }
-        // },
-        // statusAlert(params) {
-        //     this.statusAlertNotify = params;
-        // },
-        // //function to edit customer
-        // onDoubleClick(customer) {
-        //     this.item = Object.assign({}, customer);
-        //     this.statusListDetail = !this.statusListDetail;
-        // },
-        // //function remove customer
-        // removeCustomer() {
-        //     if (this.listIds.length !== 0) {
-        //         this.statusShowPopup = true;
-        //     } else {
-        //         alert('Ban chua chon ban ghi nao de xoa!');
-        //     }
-        // },
-        // //catch event click every input checkbox
-        // getChecked(id, e) {
-        //     if (e.target.checked) {
-        //         this.listIds.push(id);
-        //     } else {
-        //         let position = this.listIds.indexOf(id);
-        //         if (position !== -1) {
-        //             this.listIds.splice(position, 1);
-        //         }
-        //     }
-        // },
-        // //refresh list customers page
-        // refreshListCustomers() {
-        //     this.fetchCustomers();
-        // },
-        // //function format date to show
-        // formatDate(dateTime) {
-        //     if (dateTime) {
-        //         return moment(String(dateTime)).format('DD-MM-YYYY');
-        //     }
-        // }
+        statusPopup(params) {
+            this.statusShowPopup = params;
+        },
+        isDeleted(params) {
+            //if store removed -> set empty list
+            if (params) {
+                this.listIds = [];
+            }
+        },
+        //function to edit store
+        onDoubleClick(store) {
+            this.item = Object.assign({}, store);
+            this.statusListDetail = !this.statusListDetail;
+        },
+        editStore() {
+            // this.item = Object.assign({}, );
+            this.statusListDetail = !this.statusListDetail;
+        },
+        //function remove store
+        removeStore() {
+            if (this.listIds.length !== 0) {
+                this.statusShowPopup = true;
+            } else {
+                alert('Ban chua chon ban ghi nao de xoa!');
+            }
+        },
+        //catch event click every input checkbox
+        getChecked(id, e) {
+            if (e.target.checked) {
+                this.listIds.push(id);
+            } else {
+                let position = this.listIds.indexOf(id);
+                if (position !== -1) {
+                    this.listIds.splice(position, 1);
+                }
+            }
+        },
+        //highlight row selected when click
+        selectedRow(store) {
+            this.storeId = store.StoreId;
+            this.item = Object.assign({}, store);
+        }
     },
-    // computed: {
-    //     ...mapGetters(['allCustomers']),
-    // },
-    // created() {
-    //     this.fetchCustomers();
-    // },
+    computed: {
+        ...mapGetters(['allStores']),
+    },
+    created() {
+        this.fetchStores();
+    },
 }
 </script>

@@ -1,7 +1,5 @@
-const CUSTOMER_CODE = "Ma khach hang"
-const PHONE_NUMBER = "So dien thoai"
+const STORE_CODE = "Ma cua hang"
 
 export default {
-    CUSTOMER_CODE,
-    PHONE_NUMBER,
+    STORE_CODE,
 }
