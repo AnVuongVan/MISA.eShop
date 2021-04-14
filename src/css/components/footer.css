@@ -29,6 +29,7 @@
 
 .page-load {
     border: solid 1px #636dde;
+    outline-style: none;
 }
 
 .footer>form {
@@ -98,6 +99,11 @@
     padding: 4px 6px;
     border-radius: 3px;
     text-align: center;
+}
+
+.footer input:focus {
+    outline: none;
+    border: solid 1px #6b6f9d;
 }
 
 .footer input::-webkit-inner-spin-button, 

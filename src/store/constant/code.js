@@ -1,15 +1,17 @@
 const ISVALID = 100
 const NOTVALID = 900
 const SUCCESS = 200
+const NO_CONTENT = 204
 const EXCEPTION = 500
 const SAVE = 'SAVE'
-const SAVECONTINUE = 'SAVECONTINUE'
+const SAVE_CONTINUE = 'SAVE_CONTINUE'
 
 export default {
     ISVALID,
     NOTVALID,
     SUCCESS,
     EXCEPTION,
+    NO_CONTENT,
     SAVE,
-    SAVECONTINUE
+    SAVE_CONTINUE
 }

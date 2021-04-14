@@ -5,28 +5,48 @@
             <form>
                 <div class="m-content">
                     <div class="dialog-header">
-                        <div class="title">Them moi cửa hàng</div>
+                        <div class="title" v-text="this.title"></div>
                         <div class="icon-times" @click="hideListDetail"></div>
                     </div>
             
                     <div class="dialog-content">
                         <div class="children-input">
                             <label for="">Mã cửa hàng <span style="color: red;">*</span></label>
+
                             <input type="text" v-model.trim="formData.StoreCode" ref="StoreCode"
-                            :class="{'is-invalid': (validateStatus($v.formData.StoreCode) || errors.StoreCode.length)}">        
+                                @blur="storeCodeBlur" @input="getInputChange(1)"
+                                :class="{'is-invalid': errors.StoreCode.length}">
+
+                            <div class="msg-error" v-if="errors.StoreCode.length">
+                                <span class="icon-error" @mouseover="overStoreCode" @mouseleave="leaveStoreCode"></span>
+                                <span class="tooltip-error" v-if="isTooltip.StoreCode">{{ errors.StoreCode[0] }}</span>
+                            </div>
                         </div>
             
                         <div class="children-input">
                             <label>Tên cửa hàng <span style="color: red;">*</span></label>
-                            <input type="text" v-model.trim="formData.StoreName"
-                            :class="{'is-invalid': validateStatus($v.formData.StoreName) }">
+
+                            <input type="text" v-model.trim="formData.StoreName" 
+                                @blur="storeNameBlur" @input="getInputChange(2)"
+                                :class="{'is-invalid': errors.StoreName.length}">
+
+                            <div class="msg-error" v-if="errors.StoreName.length">
+                                <span class="icon-error" @mouseover="overStoreName" @mouseleave="leaveStoreName"></span>
+                                <span class="tooltip-error" v-if="isTooltip.StoreName">{{ errors.StoreName[0] }}</span>
+                            </div>
                         </div>
             
                         <div class="children-input">
-                            <label for="">Địa chỉ <span style="color: red;">*</span></label>                     
-                            <textarea cols="70" rows="5" v-model.trim="formData.Address"
-                            :class="{'is-invalid': validateStatus($v.formData.Address)}">
-                            </textarea>
+                            <label for="">Địa chỉ <span style="color: red;">*</span></label>   
+
+                            <input type="text" v-model.trim="formData.Address" 
+                                @blur="addressBlur" @input="getInputChange(3)" style="height: 80px"
+                                :class="{'is-invalid': errors.Address.length}">
+
+                            <div class="msg-error" v-if="errors.Address.length">
+                                <span class="icon-error" @mouseover="overAddress" @mouseleave="leaveAddress"></span>
+                                <span class="tooltip-error" v-if="isTooltip.Address">{{ errors.Address[0] }}</span>
+                            </div>
                         </div>
             
                         <div class="children-input">
@@ -102,6 +122,14 @@
                                 <input type="text" v-model.trim="formData.Street">
                             </div>
                         </div>
+
+                        <div class="childern-input input-checkbox" v-if="this.status">
+                            <label></label>
+                            <div class="check-status">
+                                <input type="checkbox" v-model="formData.Status" />
+                                <span>Đang hoạt động</span>
+                            </div>                        
+                        </div>
                     </div>
             
                     <div class="dialog-footer">
@@ -116,14 +144,14 @@
                                 <span>Luu</span>
                             </button>
 
-                            <button class="multiple-save-add" @click="saveData('SAVECONTINUE', $event)">
+                            <button class="multiple-save-add" @click="saveData('SAVE_CONTINUE', $event)">
                                 <div class="icon-save-add"></div>
                                 <span>Luu va them moi</span>
                             </button>
 
-                            <button class="single-close" @click="hideListDetail">
+                            <button class="single-close" @keydown="onLastTab">
                                 <div class="icon-close"></div>
-                                <span>Hủy bỏ</span>
+                                <span @click="hideListDetail">Hủy bỏ</span>
                             </button>
                         </div> 
                     </div>
@@ -137,14 +165,14 @@
 import MISACode from '../../store/constant/code'
 import PropertyName from '../../store/constant/property'
 import { mapGetters, mapActions } from 'vuex';
-import { required } from 'vuelidate/lib/validators'
-import axios from 'axios'
 
 export default{
     name: 'StoreListDetail',
     props: ['store'],
     data() {
         return {
+            title: '',
+            status: '',
             formData: {
                 StoreCode: '',
                 StoreName: '',
@@ -156,42 +184,31 @@ export default{
                 DistrictId: '',
                 WardId: '',
                 Street: '',
+                Status: ''
             },
             errors: {
                 StoreCode: [],
                 StoreName: [],
                 Address: []
             },
-            // isTooltip: {
-            //     CustomerCode: false,
-            //     PhoneNumber: false,
-            // },
-            allProvinces: [],
-            allDistricts: [],
-            allWards: []
-        }
-    },
-    validations: {
-        formData: {
-            StoreCode: { required },
-            StoreName: { required },
-            Address: { required },
+            isTooltip: {
+                StoreCode: PropertyName.UN_ACTIVE,
+                StoreName: PropertyName.UN_ACTIVE,
+                Address: PropertyName.UN_ACTIVE
+            },
         }
     },
     methods: {
-        ...mapActions(['fetchCountries', 'dispatchStore']),
-        validateStatus: function(validation) {
-            return typeof validation != 'undefined'? validation.$error : false;
-        },
+        ...mapActions(['fetchCountries', 'fetchProvinces', 'fetchDistricts', 'fetchWards', 
+        'fetchProvincesWithCountry', 'fetchDistrictsWithProvince', 'fetchWardsWithDistrict', 'dispatchStore']),
         //form submit to create or update
         saveData: function(action, e) {
             e.preventDefault();
 
-            this.$v.formData.$touch();
-            if (this.$v.formData.$pending || this.$v.formData.$error) return;
-
             this.errors = {
-                StoreCode: [],               
+                StoreCode: [],
+                StoreName: [],
+                Address: []            
             };
 
             this.dispatchStore(this.formData)
@@ -206,21 +223,13 @@ export default{
                             break;
                         case MISACode.ISVALID:
                         case MISACode.SUCCESS:  
-                            if (action === MISACode.SAVECONTINUE) {
-                                this.formData = {
-                                    StoreCode: '',
-                                    StoreName: '',
-                                    Address: '',
-                                    PhoneNumber: '',
-                                    StoreTaxCode: '',    
-                                    CountryId: '',
-                                    ProvinceId: '',
-                                    DistrictId: '',
-                                    WardId: '',
-                                    Street: '',
-                                }
+                            if (action === MISACode.SAVE_CONTINUE) {
+                                this.formData = {};
+                                this.title = PropertyName.CREATE_STORE;
+                                this.status = PropertyName.UN_ACTIVE;
+                                this.$refs.StoreCode.focus();
                             } else {
-                                this.$emit("statusModal", false);
+                                this.$emit("statusModal", PropertyName.UN_ACTIVE);
                             }                                                     
                             break;
                         default:
@@ -229,79 +238,115 @@ export default{
                 });
         },
         hideListDetail() {
-            //pass value to parent components (CustomerList)
             this.errors = {};
-            this.$emit("statusModal", false);
+            this.$emit("statusModal", PropertyName.UN_ACTIVE);
         },
         //show tooltip error
-        // overCustomerCode() {
-        //     this.isTooltip.CustomerCode = !this.isTooltip.CustomerCode;
-        // },
-        // overPhoneNumber() {
-        //     this.isTooltip.PhoneNumber = !this.isTooltip.PhoneNumber;
-        // },
-        // //hide tooltip error
-        // leaveCustomerCode() {
-        //     this.isTooltip.CustomerCode = !this.isTooltip.CustomerCode;          
-        // },
-        // leavePhoneNumber() {
-        //     this.isTooltip.PhoneNumber = !this.isTooltip.PhoneNumber;         
-        // }
-
+        overStoreCode() {
+            this.isTooltip.StoreCode = !this.isTooltip.StoreCode;
+        },
+        overStoreName() {
+            this.isTooltip.StoreName = !this.isTooltip.StoreName;
+        },
+        overAddress() {
+            this.isTooltip.Address = !this.isTooltip.Address;
+        },
+        //hide tooltip error
+        leaveStoreCode() {
+            this.isTooltip.StoreCode = !this.isTooltip.StoreCode;          
+        },
+        leaveStoreName() {
+            this.isTooltip.StoreName = !this.isTooltip.StoreName;          
+        },
+        leaveAddress() {
+            this.isTooltip.Address = !this.isTooltip.Address;          
+        },
+        //catch event select box change
         onChangeCountry(e) {
             let countryId = e.target.value;
-            const params = {
-                countryId: countryId, 
-            };
-            axios.get('http://localhost:62509/api/v1/provinces/country', { params })
-                .then(response => {
-                    this.allProvinces = response.data;
-                })
-                .catch(err => {
-                    this.allProvinces = [];
-                    this.allDistricts = [];
-                    this.allWards = [];
-                    console.log(err);
-                });
+            this.fetchProvincesWithCountry(countryId);
         },
         onChangeProvince(e) {
             let provinceId = e.target.value;
-            const params = {
-                provinceId: provinceId, 
-            };
-            axios.get('http://localhost:62509/api/v1/districts/province', { params })
-                .then(response => {
-                    console.log(response.data);
-                    this.allDistricts = response.data;
-                })
-                .catch(err => {
-                    this.allDistricts = [];
-                    this.allWards = [];
-                    console.log(err);
-                });
+            this.fetchDistrictsWithProvince(provinceId);
         },
         onChangeDistrict(e) {
             let districtId = e.target.value;
-            const params = {
-                districtId: districtId, 
-            };
-            axios.get('http://localhost:62509/api/v1/wards/district', { params })
-                .then(response => {
-                    console.log(response.data);
-                    this.allWards = response.data;
-                })
-                .catch(err => {
-                    this.allWards = [];
-                    console.log(err);
-                });
+            this.fetchWardsWithDistrict(districtId);
         },
+        //catch event on input
+        getInputChange(number) {
+            switch (number) {
+                case 1:
+                    if (!this.formData.StoreCode) {
+                        this.errors.StoreCode.push(PropertyName.INPUT_REQUIRED);
+                    } else {
+                        this.errors.StoreCode = [];
+                    }
+                    break;
+                case 2:
+                    if (!this.formData.StoreName) {
+                        this.errors.StoreName.push(PropertyName.INPUT_REQUIRED);
+                    } else {
+                        this.errors.StoreName = [];
+                    }
+                    break;
+                case 3:
+                    if (!this.formData.Address) {
+                        this.errors.Address.push(PropertyName.INPUT_REQUIRED);
+                    } else {
+                        this.errors.Address = [];
+                    }
+                    break;
+                default:
+                    break;
+            }
+        },
+        //catch event blur input
+        storeCodeBlur(e) {
+            if (!e.target.value) {
+                this.errors.StoreCode.push(PropertyName.INPUT_REQUIRED);
+            } else {
+                this.errors.StoreCode = [];
+            }
+        },
+        storeNameBlur(e) {
+            if (!e.target.value) {
+                this.errors.StoreName.push(PropertyName.INPUT_REQUIRED);
+            } else {
+                this.errors.StoreName = [];
+            }
+        },
+        addressBlur(e) {
+            if (!e.target.value) {
+                this.errors.Address.push(PropertyName.INPUT_REQUIRED);
+            } else {
+                this.errors.Address = [];
+            }
+        },
+        onLastTab(e) {
+            if (e.keyCode == 9) {
+                e.preventDefault();
+                this.$refs.StoreCode.focus();
+            } else if(e.keyCode == 13) {
+                this.hideListDetail();
+            }
+        }
     },
     computed: {
-        ...mapGetters(['allCountries']),
+        ...mapGetters(['allCountries', 'allProvinces', 'allDistricts','allWards']),
     },
     created() {
         //set value for form data when update
         this.formData = Object.assign({}, this.store);
+
+        if (this.formData.StoreCode) {
+            this.title = PropertyName.UPDATE_STORE;
+            this.status = PropertyName.ACTIVE;
+        } else {
+            this.title = PropertyName.CREATE_STORE;
+            this.status = PropertyName.UN_ACTIVE;
+        }
     },
     mounted() {
         this.fetchCountries();
@@ -317,34 +362,37 @@ export default{
     border: 1px solid #FF4747;
 }
 
-.input-required {
+.msg-error {
+    width: 26px;
+    height: 34px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
     position: relative;
 }
 
-.tooltip-error {
+.msg-error span.icon-error {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/form/exclamation.png') no-repeat center center;
+    background-size: contain;
+    width: 16px;
+    height: 16px;
+    display: block;
+}
+
+.msg-error span.tooltip-error {
     position: absolute;
-    left: 15%;
-    top: -112%;
-    right: 15%;
+    left: 110%;
+    top: 80%;
+    right: -790%;
     background-color: #FF4747;
     color: #fff;
     text-align: center;
-    border-radius: 4px;
-    padding: 5px;
+    border-radius: 2px;
+    padding: 10px 6px;
     font-size: 13px;
-}
-
-.tooltip-error::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 100%;
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid #FF4747;
-    z-index: 5;
-    clear: both;
+    display: block;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
 }
 </style>
+
+<!--link: https://codepen.io/ittus/pen/qYKRPv-->

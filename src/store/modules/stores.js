@@ -48,8 +48,11 @@ const actions = {
     },
     async queryStores({ commit }, data) {
         const params = {
-            query: data.query, 
-            groups: data.groups
+            StoreCode: data.StoreCode, 
+            StoreName: data.StoreName,
+            Address: data.Address, 
+            PhoneNumber: data.PhoneNumber,
+            Status: data.Status
         };
         const response = await axios.get(`${API_URL}/search`, { params });
         console.log(response.data);

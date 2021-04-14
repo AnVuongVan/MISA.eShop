@@ -21,7 +21,7 @@
             <div class="img-footer img-page-last">
             </div>
         </button>
-        <button class="item-footer page-load">
+        <button class="item-footer page-load" @click="refreshData">
             <div class="img-footer img-page-load">
             </div>
         </button>
@@ -37,9 +37,17 @@
 </template>
 
 <script>
-    export default {
-        name: 'Paging'
+import { mapActions } from 'vuex';
+
+export default {
+    name: 'Paging',
+    methods: {
+        ...mapActions(['fetchStores']),
+        refreshData() {
+            this.fetchStores();
+        }
     }
+}
 </script>
 
 <style scoped>

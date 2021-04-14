@@ -40,6 +40,7 @@
 
 .dialog-header .title {
     padding: 0;
+    font-size: 16px;
 }
 
 .dialog-header .icon-times {
@@ -77,15 +78,14 @@
     border-radius: 3px;
 }
 
-.children-input textarea {
+/* .children-input textarea {
     flex: 1;
     padding: 5px 10px;
     border: 1px solid #d0d0d0;
     border-radius: 3px;
     resize: none;
-}
+} .children-input textarea:focus, */
 
-.children-input textarea:focus,
 .children-input input:focus {
     outline: 0;
     border: 1px solid #6b6f9d;
@@ -164,6 +164,41 @@ span.icon-arrow:hover {
     cursor: pointer;
 }
 
+.input-checkbox {
+    display: flex;
+}
+
+.input-checkbox label {
+    width: 132px;
+}
+
+.input-checkbox .check-status {
+    display: flex;
+    align-items: center;
+}
+
+.check-status>span {
+    padding-left: 8px;
+}
+
+.check-status>input[type="checkbox"]:focus-visible {
+    outline: none;
+}
+
+.check-status>input[type=checkbox]:before {
+    content: "";
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/uncheck.png') no-repeat center center;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.check-status>input[type=checkbox]:checked:before {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/check.png') no-repeat center center;
+}
+
 .m-content .dialog-footer {
     height: 59px;
     padding: 12px 14px;
@@ -198,9 +233,11 @@ button.single-help {
     font-weight: 600;
 }
 
+button.single-help:focus-visible,
 button.single-help:hover {
     background-color: #e5e6eb;
     cursor: pointer;
+    outline: none;
 }
 
 .dialog-footer-right {
@@ -229,6 +266,7 @@ button.single-help:hover {
     margin-right: 3px;
 }
 
+.single-save:focus-visible,
 .single-save:hover {
     background-color: #6b6f9d;
     cursor: pointer;
@@ -257,10 +295,12 @@ button.single-help:hover {
     margin-right: 3px;
 }
 
+.multiple-save-add:focus-visible,
 .multiple-save-add:hover {
     cursor: pointer;
 }
 
+.multiple-save-add:focus-visible>span,
 .multiple-save-add span:hover {
     color: #6b6f9d;
 }
@@ -289,6 +329,7 @@ button.single-help:hover {
     margin-right: 3px;
 }
 
+.single-close:focus-visible,
 .single-close:hover {
     border: 1px solid #2b3173;
     cursor: pointer;

@@ -37,7 +37,7 @@
             <!-- Start of table -->
             <div class="table-content">
                 <table class="main-table">
-                    <thead>
+                    <!-- <thead>
                         <tr>
                             <th class="checkBox">
                                 <input type="checkbox">
@@ -97,7 +97,8 @@
                                 </div>
                             </th>
                         </tr>
-                    </thead>
+                    </thead> -->
+                    <StoreFilter />
                     <tbody>
                         <tr v-for="store in allStores" :key="store.StoreId" @click="selectedRow(store)"
                         @dblclick="onDoubleClick(store)" :class="{'row-selected': store.StoreId === storeId }">
@@ -136,7 +137,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import StoreListDetail from './StoreListDetail';
-// import CustomerFilter from './CustomerFilter'
+import StoreFilter from './StoreFilter';
 
 import Paging from '../base/Paging';
 import Popup from '../base/Popup';
@@ -145,7 +146,7 @@ export default{
     name: 'StoreList',
     components: {
         StoreListDetail,
-        // CustomerFilter,
+        StoreFilter,
         Paging,
         Popup,
     },
@@ -215,7 +216,7 @@ export default{
     computed: {
         ...mapGetters(['allStores']),
     },
-    created() {
+    created() {    
         this.fetchStores();
     },
 }

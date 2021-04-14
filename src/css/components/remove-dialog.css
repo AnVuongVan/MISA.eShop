@@ -22,8 +22,8 @@
     width: 400px;
     height: auto;
     background-color: white;
-    top: calc(50% - 400px);
-    left: calc(50% - 300px);
+    top: calc(50% - 200px);
+    left: calc(50% - 200px);
     border-radius: 3px;
     overflow: hidden;
 }
@@ -112,6 +112,7 @@ button.single-trash {
     height: 24px;
 }
 
+button.single-trash:focus-visible,
 .single-trash:hover {
     cursor: pointer;
     background-color: #df4646;
@@ -142,6 +143,7 @@ button.single-cancel:focus {
     width: 16px;
 }
 
+.single-cancel:focus-visible,
 .single-cancel:hover {
     cursor: pointer;
 }
