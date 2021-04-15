@@ -3,17 +3,17 @@
         <div class="my-dialog"></div>
         <div class="remove-content">
             <div class="remove-header">
-                <div class="title">Xoa du lieu</div>
+                <div class="title">Xóa dữ liệu</div>
                 <div class="icon-times" @click="hidePopup"></div>
             </div>
             <div class="remove-body">
                 <div class="icon-question"></div>
-                <div class="text-content">Ban co chac chan muon xoa cua hang <b style="color: #df4646;">{{ storeName }}&nbsp;-&nbsp;({{ storeCode }})</b> khong?</div>
+                <div class="text-content">Bạn có chắc chắn muốn xóa cửa hàng <b style="color: #df4646;">{{ storeName }}&nbsp;-&nbsp;({{ storeCode }})</b> không?</div>
             </div>
             <div class="remove-footer">
                 <button class="single-trash" @click="removeStore">
                     <div class="icon-trash"></div>
-                    <span>Xoa</span>
+                    <span>Xóa</span>
                 </button>
                 <button class="single-cancel" @click="hidePopup">
                     <div class="icon-cancel"></div>
@@ -33,8 +33,8 @@ export default ({
     props: ['listIds'],
     data() {
         return {
-            storeName: 'voi nhieu ban ghi',
-            storeCode: 'da chon'
+            storeName: 'với nhiều bản ghi',
+            storeCode: 'đã chọn'
         }
     },
     methods: {

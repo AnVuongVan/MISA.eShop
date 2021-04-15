@@ -132,18 +132,18 @@
                     <div class="dialog-footer">
                         <button class="single-help">
                             <div class="icon-help"></div>
-                            <span>Tro giúp</span>
+                            <span>Trợ giúp</span>
                         </button>
 
                         <div class="dialog-footer-right">
                             <button class="single-save" @click="saveData('SAVE', $event)">
                                 <div class="icon-save"></div>
-                                <span>Luu</span>
+                                <span>Lưu</span>
                             </button>
 
                             <button class="multiple-save-add" @click="saveData('SAVE_CONTINUE', $event)">
                                 <div class="icon-save-add"></div>
-                                <span>Luu va them moi</span>
+                                <span>Lưu và thêm mới</span>
                             </button>
 
                             <button class="single-close" @keydown="onLastTab">

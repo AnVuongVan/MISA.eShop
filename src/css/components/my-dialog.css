@@ -7,7 +7,7 @@
     right: 0;
 }
 
-.m-dialog .m-modal {               
+.m-dialog .m-modal {
     position: absolute;
     top: 0;
     left: 0;
@@ -17,7 +17,7 @@
     opacity: 0.5;
 }
 
-.m-dialog .m-content {               
+.m-dialog .m-content {
     position: absolute;
     width: 685px;
     height: auto;
@@ -42,6 +42,7 @@
     padding: 0;
     font: 700 16px roboto!important;
     color: #212121;
+    user-select: none;
 }
 
 .dialog-header .icon-times {
@@ -76,13 +77,14 @@
     padding-left: 10px;
 }
 
-.children-input input { 
+.children-input input {
     flex: 1;
     height: 34px;
     padding: 5px 10px;
     border: 1px solid #d0d0d0;
     border-radius: 3px;
 }
+
 
 /* .children-input textarea {
     flex: 1;
@@ -110,7 +112,7 @@
     border-radius: 3px;
     padding: 5px 1px 4px 8px;
     background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/arrow-down-line.png') no-repeat center right;
-    appearance:none;
+    appearance: none;
 }
 
 .half-children-input select:focus {
@@ -118,7 +120,9 @@
     border: 1px solid #6b6f9d;
 }
 
+
 /* custom drop down list */
+
 .half-children-input .select-content {
     position: relative;
 }
@@ -166,6 +170,8 @@ span.icon-arrow:hover {
 .select-options li:last-child {
     border-bottom: none;
 }
+
+
 /* end */
 
 .half-children-input select:hover {
@@ -296,7 +302,7 @@ button.single-help:hover {
     padding: 0 5px;
 }
 
-.multiple-save-add .icon-save-add{
+.multiple-save-add .icon-save-add {
     background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -25px -127px;
     height: 16px;
     width: 16px;
@@ -317,7 +323,7 @@ button.single-help:hover {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-radius: 3px; 
+    border-radius: 3px;
     background-color: white;
     border: none;
     margin-left: 6px;
