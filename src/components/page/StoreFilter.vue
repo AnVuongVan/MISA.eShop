@@ -1,12 +1,4 @@
 <template>
-    <!-- <div class="filter-left">
-        <input type="text" class="icon-search input-search" v-model="inputSearch"
-        style="width: 200px;" placeholder="Tim kiem theo ma, ten khach" @input="getQuery" />
-        <select v-model="customerGroupId" @change="getQuery">  
-            <option v-for="group in allGroups" :key="group.CustomerGroupId" 
-            :value="group.CustomerGroupId">{{ group.CustomerGroupName }}</option>                                     
-        </select>
-    </div> -->
     <thead>
         <tr>
             <th class="checkBox">
@@ -61,9 +53,9 @@
                 <span>Trạng thái</span>
                 <div class="search-box">
                     <select v-model="status" @change="getQuery">
-                        <option selected value="">Tất cả</option>
-                        <option value="1">Đang hoạt động</option>
-                        <option value="0">Ngừng hoạt động</option>
+                        <option value="1">Tất cả</option>
+                        <option value=true>Đang hoạt động</option>
+                        <option value=false>Ngừng hoạt động</option>
                     </select>
                 </div>
             </th>
@@ -82,7 +74,7 @@ export default {
             storeName: '',
             address: '',
             phoneNumber: '',
-            status: ''
+            status: '1'
         }
     },
     methods: {
@@ -93,8 +85,8 @@ export default {
                 Address: this.address,
                 PhoneNumber: this.phoneNumber,
                 Status: this.status
-            }                   
-            this.$store.dispatch('queryStores', data);
+            }                  
+            this.$store.dispatch('queryStores', data);          
         }, 500)
     }
 }

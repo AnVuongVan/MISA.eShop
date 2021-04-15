@@ -1,6 +1,6 @@
-const STORE_CODE = "Ma cua hang"
-const CREATE_STORE = "Them moi cua hang"
-const UPDATE_STORE = "Sua cua hang"
+const STORE_CODE = "Mã cửa hàng"
+const CREATE_STORE = "Thêm mới cửa hàng"
+const UPDATE_STORE = "Sửa cửa hàng"
 const INPUT_REQUIRED = "Truong nay khong duoc de trong"
 
 const ACTIVE = true

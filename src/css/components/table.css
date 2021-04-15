@@ -37,7 +37,10 @@ th span {
     display: inline-block;
     text-align: center;
     line-height: 32px;
-    font-weight: 600;
+    font-family: Roboto!important;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: initial;
 }
 
 th .search-box {

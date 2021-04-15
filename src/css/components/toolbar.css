@@ -33,6 +33,10 @@
     border-right: 1px solid #190472;
 }
 
+.item-toolbar.item-toolbar-export {
+    border-right: none;
+}
+
 .item-toolbar:hover {
     cursor: pointer;
     background-color: #6b6f9d;

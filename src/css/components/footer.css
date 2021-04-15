@@ -12,6 +12,14 @@
     min-width: 1130px;
 }
 
+.footer button {
+    outline-style: none;
+}
+
+.footer button:hover {
+    border: solid 1px #636dde;
+}
+
 .item-footer {
     border: solid 1px #d0d0d0;
     background-color: #ffff;
@@ -42,7 +50,7 @@
 }
 
 .footer form>span {
-    width: 35px;
+    min-width: 35px;
 }
 
 .footer form>label {
@@ -90,6 +98,22 @@
 
 .img-page-load {
     background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -850px -127px;
+}
+
+.img-page-first:hover {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -650px -127px;
+}
+
+.img-page-prev:hover {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -700px -127px;
+}
+
+.img-page-next:hover {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -750px -127px;
+}
+
+.img-page-last:hover {
+    background: url('https://eshopvnappg2.misacdn.net/QLCH/resources/images/common-icon.png') no-repeat -800px -127px;
 }
 
 .footer input {

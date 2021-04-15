@@ -51,10 +51,10 @@
             
                         <div class="children-input">
                             <div class="half-children-input">
-                                <label>So dien thoai</label>
+                                <label>Số điện thoại</label>
                                 <input type="text" v-model.trim="formData.PhoneNumber">
                             </div>
-                            <div class="half-children-input">
+                            <div class="half-children-input right-child">
                                 <label>Mã số thuế</label>
                                 <input type="text" v-model.trim="formData.StoreTaxCode">
                             </div>
@@ -62,37 +62,35 @@
             
                         <div class="children-input">
                             <div class="half-children-input">
-                                <label>Quoc gia</label>
+                                <label>Quốc gia</label>
                                 <select v-model.trim="formData.CountryId" @change="onChangeCountry($event)">
-                                    <option value="">Viet Nam</option>
                                     <option v-for="country in allCountries" :key="country.CountryId" 
                                     :value="country.CountryId">{{ country.CountryName }}</option>
                                 </select>
                                 <!-- <label>Quoc gia</label>
                                 <div class="select-content">
-                                    <input type="text" v-model.trim="formData.CountryId">
+                                    <input type="text" v-bind:value="formData.CountryId">
                                     <ul class="select-options">
-                                        <li v-for="country in allCountries" :key="country.CountryId" 
-                                            :value="country.CountryId">{{ country.CountryName }}</li>                                       
+                                        <li v-for="country in allCountries" :key="country.CountryId" @click="selectCountry(country)"
+                                            :value="country.CountryId">{{ country.CountryName }}
+                                        </li>                                       
                                     </ul>
                                 </div>
-                                <span class="icon-arrow"></span>-->                        
+                                <span class="icon-arrow"></span> -->
                             </div>
                         </div>
             
                         <div class="children-input">
                             <div class="half-children-input">
-                                <label>Tinh/Thanh pho</label>                            
-                                <select v-model.trim="formData.ProvinceId" @change="onChangeProvince($event)">
-                                    <option value="">Tinh thanh</option>
+                                <label>Tỉnh/Thành phố</label>                            
+                                <select v-model.trim="formData.ProvinceId" @change="onChangeProvince($event)">                                   
                                     <option v-for="province in allProvinces" :key="province.ProvinceId" 
                                     :value="province.ProvinceId">{{ province.ProvinceName }}</option>
                                 </select>
                             </div>
-                            <div class="half-children-input">
-                                <label>Quan/Huyen</label>                             
-                                <select v-model.trim="formData.DistrictId" @change="onChangeDistrict($event)">
-                                    <option value="">Quan/Huyen</option>
+                            <div class="half-children-input right-child">
+                                <label>Quận/Huyện</label>                             
+                                <select v-model.trim="formData.DistrictId" @change="onChangeDistrict($event)">                                    
                                     <option v-for="district in allDistricts" :key="district.DistrictId" 
                                     :value="district.DistrictId">{{ district.DistrictName }}</option>
                                 </select>
@@ -101,9 +99,8 @@
             
                         <div class="children-input">
                             <div class="half-children-input">
-                                <label>Phuong/Xa</label>                             
-                                <select v-model.trim="formData.WardId">
-                                    <option value="">Phuong/Xa</option>
+                                <label>Phường/Xã</label>                             
+                                <select v-model.trim="formData.WardId">                                  
                                     <option v-for="ward in allWards" :key="ward.WardId" 
                                     :value="ward.WardId">{{ ward.WardName }}</option>
                                 </select>
@@ -117,8 +114,8 @@
                                 </div>
                                 <span class="icon-arrow"></span>
                             </div> -->
-                            <div class="half-children-input">
-                                <label>Duong pho</label>
+                            <div class="half-children-input right-child">
+                                <label>Đường phố</label>
                                 <input type="text" v-model.trim="formData.Street">
                             </div>
                         </div>
@@ -331,7 +328,7 @@ export default{
             } else if(e.keyCode == 13) {
                 this.hideListDetail();
             }
-        }
+        },
     },
     computed: {
         ...mapGetters(['allCountries', 'allProvinces', 'allDistricts','allWards']),
@@ -394,5 +391,3 @@ export default{
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
 }
 </style>
-
-<!--link: https://codepen.io/ittus/pen/qYKRPv-->

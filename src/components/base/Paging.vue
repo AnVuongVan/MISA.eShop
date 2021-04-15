@@ -1,51 +1,137 @@
 <template>
     <div class="footer">
-        <button class="item-footer page-first">
+        <button class="item-footer page-first" @click="firstPage">
             <div class="img-footer img-page-first">
             </div>
         </button>
-        <button class="item-footer page-prev">
+
+        <button class="item-footer page-prev" @click="prevPage">
             <div class="img-footer img-page-prev">
             </div>
         </button>
-        <form action="">
+
+        <form @submit="getNumberOfPage">
             <label>Trang</label>
-            <input type="number" value="1" />
-            <label>trên 1</label>
+            <input type="number" v-model="paging.currentPage" />
+            <span>trên {{ paging.totalPage }}</span>
         </form>
-        <button class="item-footer page-next">
+
+        <button class="item-footer page-next" @click="nextPage">
             <div class="img-footer img-page-next">
             </div>
         </button>
-        <button class="item-footer page-last">
+
+        <button class="item-footer page-last" @click="lastPage">
             <div class="img-footer img-page-last">
             </div>
         </button>
+
         <button class="item-footer page-load" @click="refreshData">
             <div class="img-footer img-page-load">
             </div>
         </button>
-        <select>
+
+        <select v-model="paging.limit" @change="getQuery">
             <option value="25">25</option>
             <option value="50">50</option>
             <option value="100">100</option>
         </select>
+
         <div class="show-result">
-            <span>Hiển thị 1 - 9 trên 9 kết quả</span>
+            <span>Hiển thị {{ this.paging.limit * this.paging.offset + 1 }} <b>-</b> 
+                {{ numberOfDestinationPage() }} trên 
+                {{ this.$store.state.stores.totalItems }} kết quả
+            </span>
         </div>
     </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import debounce from 'debounce';
 
 export default {
     name: 'Paging',
+    data() {
+        return {
+            paging: {
+                limit: 50,
+                offset: 0,
+                totalPage: 0,
+                currentPage: 1
+            }
+        }
+    },
     methods: {
-        ...mapActions(['fetchStores']),
+        ...mapActions(['fetchStores', 'pagingStores']),
         refreshData() {
             this.fetchStores();
+        },
+        getQuery: debounce(function () {
+            this.paging.currentPage = 1;
+            this.paging.offset = 0;
+
+            this.setParamsToPaging();  
+            this.paging.totalPage = Math.ceil(this.$store.state.stores.totalItems / this.paging.limit);
+        }, 100),
+        getNumberOfPage: function(e) {
+            e.preventDefault();
+            if (this.paging.currentPage > this.paging.totalPage || this.paging.currentPage < 1) return;
+            this.paging.offset = this.paging.currentPage - 1;
+            this.setParamsToPaging();  
+        },
+        firstPage: debounce(function () {
+            if (this.paging.currentPage !== 1) {
+                this.paging.currentPage = 1;
+                this.paging.offset = 0;
+
+                this.setParamsToPaging(); 
+            }          
+        }, 100),
+        prevPage: debounce(function () {
+            if (this.paging.currentPage > 1) {
+                this.paging.currentPage -= 1;
+                this.paging.offset = this.paging.currentPage - 1;
+
+                this.setParamsToPaging();
+            }         
+        }, 100),
+        nextPage: debounce(function () {
+            if (this.paging.currentPage !== this.paging.totalPage) {
+                this.paging.currentPage += 1;
+                this.paging.offset = this.paging.currentPage - 1;
+
+                this.setParamsToPaging(); 
+            }          
+        }, 100),
+        lastPage: debounce(function () {
+            if (this.paging.currentPage < this.paging.totalPage) {
+                this.paging.currentPage = this.paging.totalPage;
+                this.paging.offset = this.paging.currentPage - 1;
+ 
+                this.setParamsToPaging();
+            }         
+        }, 100),
+        setParamsToPaging() {
+            const data = {
+                limit: this.paging.limit,
+                offset: this.paging.offset,
+            }                   
+            this.$store.dispatch('pagingStores', data);
+        },
+        numberOfDestinationPage: function () {
+            let itemDest = this.paging.limit * (this.paging.offset + 1);
+            return (itemDest < this.$store.state.stores.totalItems) ? itemDest : this.$store.state.stores.totalItems;
         }
+    },
+    mounted() { 
+        this.numberOfDestinationPage();
+    },
+    created() {
+        this.paging.currentPage = 1;
+    },
+    updated() {
+        this.paging.totalPage = Math.ceil(this.$store.state.stores.totalItems / this.paging.limit);
     }
 }
 </script>

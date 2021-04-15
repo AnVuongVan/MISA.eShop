@@ -7,26 +7,32 @@
                     <div class="img img-add"></div>
                     <span>Thêm mới</span>
                 </button>
+
                 <button class="item-toolbar item-toolbar-replication">
                     <div class="img img-replication"></div>
                     <span>Nhân bản</span>
                 </button>
+
                 <button class="item-toolbar item-toolbar-modify" @click="editStore">
                     <div class="img img-modify"></div>
                     <span>Sửa</span>
                 </button>
+
                 <button class="item-toolbar item-toolbar-delete" @click="removeStore">
                     <div class="img img-delete"></div>
                     <span>Xóa</span>
                 </button>
+
                 <button class="item-toolbar item-toolbar-load">
                     <div class="img img-load"></div>
                     <span>Nạp</span>
                 </button>
+
                 <button class="item-toolbar item-toolbar-import">
                     <div class="img img-import"></div>
                     <span>Nhập khẩu</span>
                 </button>
+                
                 <button class="item-toolbar item-toolbar-export">
                     <div class="img img-export"></div>
                     <span>Xuất khẩu</span>
@@ -37,67 +43,6 @@
             <!-- Start of table -->
             <div class="table-content">
                 <table class="main-table">
-                    <!-- <thead>
-                        <tr>
-                            <th class="checkBox">
-                                <input type="checkbox">
-                            </th>
-
-                            <th class="code">
-                                <span>Mã cửa hàng</span>
-                                <div class="search-box">
-                                    <select>
-                                        <option value="approximate">*</option>
-                                        <option value="exactly">=</option>
-                                    </select>
-                                    <input type="text">
-                                </div>
-                            </th>
-
-                            <th class="name">
-                                <span>Tên cửa hàng</span>
-                                <div class="search-box">
-                                    <select>
-                                        <option value="approximate">*</option>
-                                        <option value="exactly">=</option>
-                                    </select>
-                                    <input type="text">
-                                </div>
-                            </th>
-
-                            <th class="address">
-                                <span>Địa chỉ</span>
-                                <div class="search-box">
-                                    <select>
-                                        <option value="approximate">*</option>
-                                        <option value="exactly">=</option>
-                                    </select>
-                                    <input type="text">
-                                </div>
-                            </th>
-
-                            <th class="phone">
-                                <span>Số điện thoại</span>
-                                <div class="search-box">
-                                    <select>
-                                        <option value="approximate">*</option>
-                                        <option value="exactly">=</option>
-                                    </select>
-                                    <input type="text">
-                                </div>
-                            </th>
-                            
-                            <th class="status">
-                                <span>Trạng thái</span>
-                                <div class="search-box">
-                                    <select id="status">
-                                        <option selected value="true">Đang hoạt động</option>
-                                        <option value="false">Ngừng hoạt động</option>
-                                    </select>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead> -->
                     <StoreFilter />
                     <tbody>
                         <tr v-for="store in allStores" :key="store.StoreId" @click="selectedRow(store)"

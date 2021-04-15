@@ -40,7 +40,8 @@
 
 .dialog-header .title {
     padding: 0;
-    font-size: 16px;
+    font: 700 16px roboto!important;
+    color: #212121;
 }
 
 .dialog-header .icon-times {
@@ -68,6 +69,11 @@
 .children-input label,
 .half-children-input label {
     width: 132px;
+    user-select: none;
+}
+
+.right-child>label {
+    padding-left: 10px;
 }
 
 .children-input input { 
@@ -108,7 +114,8 @@
 }
 
 .half-children-input select:focus {
-    outline: 1px solid #6b6f9d;
+    outline: none;
+    border: 1px solid #6b6f9d;
 }
 
 /* custom drop down list */
@@ -142,6 +149,7 @@ span.icon-arrow:hover {
     z-index: 10;
     height: 150px;
     overflow: auto;
+    background: white;
 }
 
 .select-options li {
