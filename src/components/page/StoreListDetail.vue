@@ -39,9 +39,9 @@
                         <div class="children-input">
                             <label for="">Địa chỉ <span style="color: red;">*</span></label>   
 
-                            <input type="text" v-model.trim="formData.Address" 
-                                @blur="addressBlur" @input="getInputChange(3)" style="height: 80px"
-                                :class="{'is-invalid': errors.Address.length}">
+                            <textarea v-model.trim="formData.Address" @blur="addressBlur" 
+                                @input="getInputChange(3)" cols="75" rows="6" 
+                                :class="{'is-invalid': errors.Address.length}"></textarea>
 
                             <div class="msg-error" v-if="errors.Address.length">
                                 <span class="icon-error" @mouseover="overAddress" @mouseleave="leaveAddress"></span>
@@ -105,15 +105,7 @@
                                     :value="ward.WardId">{{ ward.WardName }}</option>
                                 </select>
                             </div>
-                            <!-- <div class="half-children-input">
-                                <label for="">Phuong xa</label>
-                                <div class="select-content">
-                                    <input type="text" id="custom-select">
-                                    <ul class="select-options">                                     
-                                    </ul>
-                                </div>
-                                <span class="icon-arrow"></span>
-                            </div> -->
+            
                             <div class="half-children-input right-child">
                                 <label>Đường phố</label>
                                 <input type="text" v-model.trim="formData.Street">
@@ -202,21 +194,28 @@ export default{
         saveData: function(action, e) {
             e.preventDefault();
 
-            this.errors = {
-                StoreCode: [],
-                StoreName: [],
-                Address: []            
-            };
+            this.checkValidate(!this.formData.StoreCode, this.errors.StoreCode);
+            this.checkValidate(!this.formData.StoreName, this.errors.StoreName);
+            this.checkValidate(!this.formData.Address, this.errors.Address);
+
+            if (this.errors.StoreCode.length || this.errors.StoreName.length || this.errors.Address.length) return;
+
+            if (this.formData.Status) {
+                this.formData.Status = 1;
+            } else {
+                this.formData.Status = 0;
+            }
 
             this.dispatchStore(this.formData)
                 .then(res => {
                     switch (res.MISACode) {
                         case MISACode.NOTVALID:
-                            res.Data.forEach(err => {
-                                if (err.includes(PropertyName.STORE_CODE)) {
+                            this.errors.StoreCode = [];
+                            res.Data.forEach(err => {                              
+                                if (err.includes(PropertyName.STORE_CODE)) {                                   
                                     this.errors.StoreCode.push(err);
                                 } 
-                            });                              
+                            });                                                 
                             break;
                         case MISACode.ISVALID:
                         case MISACode.SUCCESS:  
@@ -301,24 +300,20 @@ export default{
         },
         //catch event blur input
         storeCodeBlur(e) {
-            if (!e.target.value) {
-                this.errors.StoreCode.push(PropertyName.INPUT_REQUIRED);
-            } else {
-                this.errors.StoreCode = [];
-            }
+            this.checkValidate(!e.target.value, this.errors.StoreCode);
         },
         storeNameBlur(e) {
-            if (!e.target.value) {
-                this.errors.StoreName.push(PropertyName.INPUT_REQUIRED);
-            } else {
-                this.errors.StoreName = [];
-            }
+            this.checkValidate(!e.target.value, this.errors.StoreName);
         },
         addressBlur(e) {
-            if (!e.target.value) {
-                this.errors.Address.push(PropertyName.INPUT_REQUIRED);
+            this.checkValidate(!e.target.value, this.errors.Address);
+        },
+        //function check errors for fields
+        checkValidate(condition, field) {
+            if (condition) {
+                field.push(PropertyName.INPUT_REQUIRED);
             } else {
-                this.errors.Address = [];
+                field = [];
             }
         },
         onLastTab(e) {
@@ -380,7 +375,7 @@ export default{
     position: absolute;
     left: 110%;
     top: 80%;
-    right: -790%;
+    right: -850%;
     background-color: #FF4747;
     color: #fff;
     text-align: center;

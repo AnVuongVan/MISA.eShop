@@ -53,9 +53,9 @@
                 <span>Trạng thái</span>
                 <div class="search-box">
                     <select v-model="status" @change="getQuery">
-                        <option value="1">Tất cả</option>
-                        <option value=true>Đang hoạt động</option>
-                        <option value=false>Ngừng hoạt động</option>
+                        <option value=2>Tất cả</option>
+                        <option value=1>Đang hoạt động</option>
+                        <option value=0>Ngừng hoạt động</option>
                     </select>
                 </div>
             </th>
@@ -74,7 +74,7 @@ export default {
             storeName: '',
             address: '',
             phoneNumber: '',
-            status: '1'
+            status: 2
         }
     },
     methods: {

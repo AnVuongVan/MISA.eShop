@@ -86,14 +86,17 @@
 }
 
 
-/* .children-input textarea {
+.children-input textarea {
     flex: 1;
     padding: 5px 10px;
     border: 1px solid #d0d0d0;
     border-radius: 3px;
     resize: none;
-} .children-input textarea:focus, */
+    font-family: 'Roboto', Tahoma, sans-serif !important;
+    font-size: 13px !important;
+} 
 
+.children-input textarea:focus,
 .children-input input:focus {
     outline: 0;
     border: 1px solid #6b6f9d;
