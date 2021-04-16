@@ -190,7 +190,7 @@ export default{
     methods: {
         ...mapActions(['fetchCountries', 'fetchProvinces', 'fetchDistricts', 'fetchWards', 
         'fetchProvincesWithCountry', 'fetchDistrictsWithProvince', 'fetchWardsWithDistrict', 'dispatchStore']),
-        //form submit to create or update
+        //form submit khi lưu hoặc lưu và thêm mới
         saveData: function(action, e) {
             e.preventDefault();
 
@@ -206,6 +206,7 @@ export default{
                 this.formData.Status = 0;
             }
 
+            //Thực hiện gửi tới store -> để lưu
             this.dispatchStore(this.formData)
                 .then(res => {
                     switch (res.MISACode) {
@@ -237,7 +238,7 @@ export default{
             this.errors = {};
             this.$emit("statusModal", PropertyName.UN_ACTIVE);
         },
-        //show tooltip error
+        //Hiển thị tooltip khi có lỗi
         overStoreCode() {
             this.isTooltip.StoreCode = !this.isTooltip.StoreCode;
         },
@@ -247,7 +248,7 @@ export default{
         overAddress() {
             this.isTooltip.Address = !this.isTooltip.Address;
         },
-        //hide tooltip error
+        //Ẩn tooltip lỗi
         leaveStoreCode() {
             this.isTooltip.StoreCode = !this.isTooltip.StoreCode;          
         },
@@ -257,20 +258,22 @@ export default{
         leaveAddress() {
             this.isTooltip.Address = !this.isTooltip.Address;          
         },
-        //catch event select box change
+        //Bắt sự kiện khi select chọn quốc gia
         onChangeCountry(e) {
             let countryId = e.target.value;
             this.fetchProvincesWithCountry(countryId);
         },
+        //Bắt sự kiện khi select chọn tỉnh/thành phố
         onChangeProvince(e) {
             let provinceId = e.target.value;
             this.fetchDistrictsWithProvince(provinceId);
         },
+        //Bắt sự kiện khi select chọn quận/huyện
         onChangeDistrict(e) {
             let districtId = e.target.value;
             this.fetchWardsWithDistrict(districtId);
         },
-        //catch event on input
+        //Bắt sự kiện input nhập liệu trường bắt buộc thay đổi
         getInputChange(number) {
             switch (number) {
                 case 1:
@@ -298,7 +301,7 @@ export default{
                     break;
             }
         },
-        //catch event blur input
+        //Bắt sự kiện blur input các trường bắt buộc
         storeCodeBlur(e) {
             this.checkValidate(!e.target.value, this.errors.StoreCode);
         },
@@ -308,7 +311,7 @@ export default{
         addressBlur(e) {
             this.checkValidate(!e.target.value, this.errors.Address);
         },
-        //function check errors for fields
+        //Hàm kiểm tra lỗi cho các trường
         checkValidate(condition, field) {
             if (condition) {
                 field.push(PropertyName.INPUT_REQUIRED);
@@ -316,6 +319,7 @@ export default{
                 field = [];
             }
         },
+        //Kiểm tra nhấn tab ở ô hủy bỏ
         onLastTab(e) {
             if (e.keyCode == 9) {
                 e.preventDefault();
@@ -329,7 +333,7 @@ export default{
         ...mapGetters(['allCountries', 'allProvinces', 'allDistricts','allWards']),
     },
     created() {
-        //set value for form data when update
+        //set value cho form data khi update
         this.formData = Object.assign({}, this.store);
 
         if (this.formData.StoreCode) {
@@ -343,7 +347,7 @@ export default{
     mounted() {
         this.fetchCountries();
 
-        //auto focus customer code input
+        //auto focus vào ô store code
         this.$refs.StoreCode.focus();
     }
 }

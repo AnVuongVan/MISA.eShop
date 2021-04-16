@@ -78,6 +78,7 @@ export default {
         }
     },
     methods: {
+        //Hàm thực hiện mỗi khi input thay đổi
         getQuery: debounce(function () {
             const data = {
                 StoreCode: this.storeCode,

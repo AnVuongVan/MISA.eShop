@@ -106,12 +106,12 @@ export default{
     },
     methods: {
         ...mapActions(['fetchStores']),
-        //show when add new store
+        //Hiển thị khi thêm mới cửa hàng
         showListDetail() {
             this.item = {};
             this.statusListDetail = !this.statusListDetail;
         },
-        //receive params status from child components
+        //Nhận status params từ component child
         statusModal(params) {
             this.statusListDetail = params;
         },
@@ -119,29 +119,30 @@ export default{
             this.statusShowPopup = params;
         },
         isDeleted(params) {
-            //if store removed -> set empty list
+            //Nếu xóa thành công -> set list rỗng
             if (params) {
                 this.listIds = [];
             }
         },
-        //function to edit store
+        //Hàm edit store
         onDoubleClick(store) {
             this.item = Object.assign({}, store);
             this.statusListDetail = !this.statusListDetail;
         },
         editStore() {
-            // this.item = Object.assign({}, );
-            this.statusListDetail = !this.statusListDetail;
+            if (this.storeId) {
+                this.statusListDetail = !this.statusListDetail;
+            }    
         },
-        //function remove store
+        //Hàm thực hiện xóa store
         removeStore() {
             if (this.listIds.length !== 0) {
                 this.statusShowPopup = true;
             } else {
-                alert('Ban chua chon ban ghi nao de xoa!');
+                alert('Bạn chưa chọn bản ghi nào để xóa!');
             }
         },
-        //catch event click every input checkbox
+        //Bắt sự kiện checkbox clicked
         getChecked(id, e) {
             if (e.target.checked) {
                 this.listIds.push(id);
@@ -152,7 +153,7 @@ export default{
                 }
             }
         },
-        //highlight row selected when click
+        //Highlight hàng được chọn
         selectedRow(store) {
             this.storeId = store.StoreId;
             this.item = Object.assign({}, store);

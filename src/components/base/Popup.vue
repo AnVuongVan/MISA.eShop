@@ -6,10 +6,12 @@
                 <div class="title">Xóa dữ liệu</div>
                 <div class="icon-times" @click="hidePopup"></div>
             </div>
+
             <div class="remove-body">
                 <div class="icon-question"></div>
                 <div class="text-content">Bạn có chắc chắn muốn xóa cửa hàng <b style="color: #df4646;">{{ storeName }}&nbsp;-&nbsp;({{ storeCode }})</b> không?</div>
             </div>
+
             <div class="remove-footer">
                 <button class="single-trash" @click="removeStore">
                     <div class="icon-trash"></div>
@@ -39,18 +41,18 @@ export default ({
     },
     methods: {
         ...mapActions(['deleteStore']),
-        //fuction to remove customer
+        //Hàm xóa cửa hàng
         removeStore() { 
             this.listIds.forEach(id => this.deleteStore(id));
             this.$emit('isDeleted', true);  
             this.$emit("statusPopup", false); 
         },
         hidePopup() {
-            //pass value to parent components (CustomerList)
             this.$emit("statusPopup", false);
         }
     },
     created() {
+        //Lấy thông tin chi tiết của cửa hàng cần xóa
         if (this.listIds.length == 1) {
             axios.get('http://localhost:62509/api/v1/stores/' + this.listIds[0])
             .then(response => {

@@ -7,7 +7,7 @@
     right: 0;
 }
 
-.dialog-remove .my-dialog {               
+.dialog-remove .my-dialog {
     position: absolute;
     top: 0;
     left: 0;
@@ -17,7 +17,7 @@
     opacity: 0.5;
 }
 
-.dialog-remove .remove-content {               
+.dialog-remove .remove-content {
     position: absolute;
     width: 400px;
     height: auto;
@@ -41,9 +41,8 @@
 
 .remove-header .title {
     padding: 0;
+    font: 600 16px Roboto!important;
     color: #212121;
-    font-size: 16px;
-    font-weight: 600;
     user-select: none;
 }
 

@@ -67,6 +67,7 @@ export default {
         refreshData() {
             this.fetchStores();
         },
+        //Hàm thực hiện mỗi khi select dữ liệu thay đổi
         getQuery: debounce(function () {
             this.paging.currentPage = 1;
             this.paging.offset = 0;
@@ -74,12 +75,14 @@ export default {
             this.setParamsToPaging();  
             this.paging.totalPage = Math.ceil(this.$store.state.stores.totalItems / this.paging.limit);
         }, 100),
+        //Hàm thực hiện khi nhập số trang vào input
         getNumberOfPage: function(e) {
             e.preventDefault();
             if (this.paging.currentPage > this.paging.totalPage || this.paging.currentPage < 1) return;
             this.paging.offset = this.paging.currentPage - 1;
             this.setParamsToPaging();  
         },
+        //Nhấn vào nút quay đầu trang
         firstPage: debounce(function () {
             if (this.paging.currentPage !== 1) {
                 this.paging.currentPage = 1;
@@ -88,6 +91,7 @@ export default {
                 this.setParamsToPaging(); 
             }          
         }, 100),
+        //Nhấn vào nút quay trang trước
         prevPage: debounce(function () {
             if (this.paging.currentPage > 1) {
                 this.paging.currentPage -= 1;
@@ -96,6 +100,7 @@ export default {
                 this.setParamsToPaging();
             }         
         }, 100),
+        //Nhấn vào nút tới trang tiếp theo
         nextPage: debounce(function () {
             if (this.paging.currentPage !== this.paging.totalPage) {
                 this.paging.currentPage += 1;
@@ -104,6 +109,7 @@ export default {
                 this.setParamsToPaging(); 
             }          
         }, 100),
+        //Nhấn vào nút tới trang cuối
         lastPage: debounce(function () {
             if (this.paging.currentPage < this.paging.totalPage) {
                 this.paging.currentPage = this.paging.totalPage;
@@ -112,6 +118,7 @@ export default {
                 this.setParamsToPaging();
             }         
         }, 100),
+        //Set params với limit & offset 
         setParamsToPaging() {
             const data = {
                 limit: this.paging.limit,
@@ -119,6 +126,7 @@ export default {
             }                   
             this.$store.dispatch('pagingStores', data);
         },
+        //Lấy kết quả cuối của trang
         numberOfDestinationPage: function () {
             let itemDest = this.paging.limit * (this.paging.offset + 1);
             return (itemDest < this.$store.state.stores.totalItems) ? itemDest : this.$store.state.stores.totalItems;
