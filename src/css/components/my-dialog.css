@@ -22,8 +22,9 @@
     width: 685px;
     height: auto;
     background-color: white;
-    top: calc(50% - 400px);
-    left: calc(50% - 300px);
+    top: 50%;
+    left: calc(50% - 342px);
+    transform: translateY(-50%);
     border-radius: 3px;
 }
 

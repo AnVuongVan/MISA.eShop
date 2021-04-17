@@ -9,7 +9,7 @@
 
             <div class="remove-body">
                 <div class="icon-question"></div>
-                <div class="text-content">Bạn có chắc chắn muốn xóa cửa hàng <b style="color: #df4646;">{{ storeName }}&nbsp;-&nbsp;({{ storeCode }})</b> không?</div>
+                <div class="text-content">Bạn có chắc chắn muốn xóa cửa hàng <b>{{ storeName }}&nbsp;-&nbsp;({{ storeCode }})</b> không?</div> <!-- style="color: #df4646;" -->
             </div>
 
             <div class="remove-footer">
