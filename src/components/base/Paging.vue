@@ -13,7 +13,7 @@
         <form @submit="getNumberOfPage">
             <label>Trang</label>
             <input type="number" v-model="paging.currentPage" />
-            <span>trên {{ paging.totalPage }}</span>
+            <span>trên {{ this.$store.state.stores.totalPage }}</span>
         </form>
 
         <button class="item-footer page-next" @click="nextPage">
@@ -38,9 +38,9 @@
         </select>
 
         <div class="show-result">
-            <span>Hiển thị {{ this.paging.limit * this.paging.offset + 1 }} <b>-</b> 
+            <span>Hiển thị {{ this.paging.limit * (this.paging.currentPage - 1) + 1 }} <b>-</b> 
                 {{ numberOfDestinationPage() }} trên 
-                {{ this.$store.state.stores.totalItems }} kết quả
+                {{ this.$store.state.stores.totalRecord }} kết quả
             </span>
         </div>
     </div>
@@ -56,8 +56,6 @@ export default {
         return {
             paging: {
                 limit: 50,
-                offset: 0,
-                totalPage: 0,
                 currentPage: 1
             }
         }
@@ -69,52 +67,42 @@ export default {
         },
         //Hàm thực hiện mỗi khi select dữ liệu thay đổi
         getQuery: debounce(function () {
-            this.paging.currentPage = 1;
-            this.paging.offset = 0;
-
+            this.paging.currentPage = 1;                 
             this.setParamsToPaging();  
-            this.paging.totalPage = Math.ceil(this.$store.state.stores.totalItems / this.paging.limit);
         }, 100),
         //Hàm thực hiện khi nhập số trang vào input
         getNumberOfPage: function(e) {
             e.preventDefault();
-            if (this.paging.currentPage > this.paging.totalPage || this.paging.currentPage < 1) return;
-            this.paging.offset = this.paging.currentPage - 1;
+            if (this.paging.currentPage > this.$store.state.stores.totalPage || this.paging.currentPage < 1) return;
+            this.paging.currentPage = 1;
             this.setParamsToPaging();  
         },
         //Nhấn vào nút quay đầu trang
         firstPage: debounce(function () {
             if (this.paging.currentPage !== 1) {
                 this.paging.currentPage = 1;
-                this.paging.offset = 0;
-
                 this.setParamsToPaging(); 
             }          
         }, 100),
         //Nhấn vào nút quay trang trước
         prevPage: debounce(function () {
-            if (this.paging.currentPage > 1) {
+            if (this.paging.currentPage > 1 && this.paging.currentPage <= this.$store.state.stores.totalPage) {
                 this.paging.currentPage -= 1;
-                this.paging.offset = this.paging.currentPage - 1;
-
                 this.setParamsToPaging();
             }         
         }, 100),
         //Nhấn vào nút tới trang tiếp theo
         nextPage: debounce(function () {
-            if (this.paging.currentPage !== this.paging.totalPage) {
+            if (this.paging.currentPage !== this.$store.state.stores.totalPage && this.paging.currentPage >= 1) {
+                this.paging.currentPage = parseInt(this.paging.currentPage);
                 this.paging.currentPage += 1;
-                this.paging.offset = this.paging.currentPage - 1;
-
                 this.setParamsToPaging(); 
             }          
         }, 100),
         //Nhấn vào nút tới trang cuối
         lastPage: debounce(function () {
-            if (this.paging.currentPage < this.paging.totalPage) {
-                this.paging.currentPage = this.paging.totalPage;
-                this.paging.offset = this.paging.currentPage - 1;
- 
+            if (this.paging.currentPage < this.$store.state.stores.totalPage) {
+                this.paging.currentPage = this.$store.state.stores.totalPage;
                 this.setParamsToPaging();
             }         
         }, 100),
@@ -122,14 +110,15 @@ export default {
         setParamsToPaging() {
             const data = {
                 limit: this.paging.limit,
-                offset: this.paging.offset,
+                offset: this.paging.currentPage,
             }                   
-            this.$store.dispatch('pagingStores', data);
+            this.$store.dispatch('updateFilterPaging', data);
+            this.$store.dispatch('filterStores');
         },
         //Lấy kết quả cuối của trang
         numberOfDestinationPage: function () {
-            let itemDest = this.paging.limit * (this.paging.offset + 1);
-            return (itemDest < this.$store.state.stores.totalItems) ? itemDest : this.$store.state.stores.totalItems;
+            let itemDest = this.paging.limit * this.paging.currentPage;
+            return (itemDest < this.$store.state.stores.totalRecord) ? itemDest : this.$store.state.stores.totalRecord;
         }
     },
     mounted() { 
@@ -139,7 +128,8 @@ export default {
         this.paging.currentPage = 1;
     },
     updated() {
-        this.paging.totalPage = Math.ceil(this.$store.state.stores.totalItems / this.paging.limit);
+        this.paging.currentPage = this.paging.currentPage <= this.$store.state.stores.totalPage? this.paging.currentPage : 1;
+        this.$store.dispatch('filterStores');
     }
 }
 </script>

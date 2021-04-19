@@ -1,63 +1,70 @@
 <template>
     <thead>
         <tr>
-            <th class="checkBox">
-                <!-- <input type="checkbox"> -->
-                #
-            </th>
-
             <th class="code">
                 <span>Mã cửa hàng</span>
                 <div class="search-box">
-                    <select>
-                        <option value="approximate">*</option>
-                        <option value="exactly">=</option>
-                    </select>
-                    <input type="text" v-model="storeCode" @input="getQuery">
+                    <div class="select-filter">
+                        <span>*</span>
+                        <ul class="select-filter-options" v-if="false">
+                            <li v-for="option in this.filterOptions" :key="option.id">{{ option.body }}</li>                                          
+                        </ul>
+                    </div>
+                    <input type="text" v-model="inputFilter.storeCode" @input="getQuery">
                 </div>
             </th>
 
             <th class="name">
                 <span>Tên cửa hàng</span>
                 <div class="search-box">
-                    <select>
-                        <option value="approximate">*</option>
-                        <option value="exactly">=</option>
-                    </select>
-                    <input type="text" v-model="storeName" @input="getQuery">
+                    <div class="select-filter">
+                        <span>*</span>
+                        <ul class="select-filter-options" v-if="false">
+                            <li v-for="option in this.filterOptions" :key="option.id">{{ option.body }}</li>                                          
+                        </ul>
+                    </div>
+                    <input type="text" v-model="inputFilter.storeName" @input="getQuery">
                 </div>
             </th>
 
             <th class="address">
                 <span>Địa chỉ</span>
                 <div class="search-box">
-                    <select>
-                        <option value="approximate">*</option>
-                        <option value="exactly">=</option>
-                    </select>
-                    <input type="text" v-model="address" @input="getQuery">
+                    <div class="select-filter">
+                        <span>*</span>
+                        <ul class="select-filter-options" v-if="false">
+                            <li v-for="option in this.filterOptions" :key="option.id">{{ option.body }}</li>                                          
+                        </ul>
+                    </div>
+                    <input type="text" v-model="inputFilter.address" @input="getQuery">
                 </div>
             </th>
 
             <th class="phone">
                 <span>Số điện thoại</span>
                 <div class="search-box">
-                    <select>
-                        <option value="approximate">*</option>
-                        <option value="exactly">=</option>
-                    </select>
-                    <input type="text" v-model="phoneNumber" @input="getQuery">
+                    <div class="select-filter">
+                        <span>*</span>
+                        <ul class="select-filter-options" v-if="false">
+                            <li v-for="option in this.filterOptions" :key="option.id">{{ option.body }}</li>                                        
+                        </ul>
+                    </div>
+                    <input type="text" v-model="inputFilter.phoneNumber" @input="getQuery">
                 </div>
             </th>
             
             <th class="status">
                 <span>Trạng thái</span>
                 <div class="search-box">
-                    <select v-model="status" @change="getQuery">
-                        <option value=2>Tất cả</option>
-                        <option value=1>Đang hoạt động</option>
-                        <option value=0>Ngừng hoạt động</option>
-                    </select>
+                    <div class="select-filter-status">
+                        <span @click="inputFilter.status.visible = !inputFilter.status.visible" v-text="this.inputFilter.status.StatusName" ></span>
+                        <ul class="select-filter-options select-status" v-if="inputFilter.status.visible">
+                            <li v-for="option in this.filterSelects" :key="option.id" @click="chooseOption(option)"
+                                :class="{'is-selected': inputFilter.status.StatusValue == option.id }">
+                                {{ option.body }}
+                            </li>                                                             
+                        </ul>
+                    </div>
                 </div>
             </th>
         </tr>
@@ -71,28 +78,56 @@ export default {
     name: 'CustomerFilter',
     data() {
         return {
-            storeCode: '',
-            storeName: '',
-            address: '',
-            phoneNumber: '',
-            status: 2
+            inputFilter: {
+                storeCode: '',
+                storeName: '',
+                address: '',
+                phoneNumber: '',
+                status: {
+                    visible: false,
+                    StatusName: 'Tất cả',
+                    StatusValue: 2
+                }
+            },
+            filterOptions: [
+                { id: 1, body: '*' },
+                { id: 2, body: '=' },
+                { id: 3, body: '>=' },
+                { id: 4, body: '<=' }
+            ],
+            filterSelects: [
+                { id: 2, body: 'Tất cả' },
+                { id: 1, body: 'Đang hoạt động' },
+                { id: 0, body: 'Ngừng hoạt động' }
+            ]
         }
     },
     methods: {
         //Hàm thực hiện mỗi khi input thay đổi
         getQuery: debounce(function () {
             const data = {
-                StoreCode: this.storeCode,
-                StoreName: this.storeName,
-                Address: this.address,
-                PhoneNumber: this.phoneNumber,
-                Status: this.status
-            }                  
-            this.$store.dispatch('queryStores', data);          
-        }, 500)
+                StoreCode: this.inputFilter.storeCode,
+                StoreName: this.inputFilter.storeName,
+                Address: this.inputFilter.address,
+                PhoneNumber: this.inputFilter.phoneNumber,
+                Status: this.inputFilter.status.StatusValue,
+            }                
+            this.$store.dispatch('updateFilterStore', data);  
+            this.$store.dispatch('filterStores');          
+        }, 500),
+        chooseOption(option) {
+            this.inputFilter.status.StatusName = option.body;   
+            this.inputFilter.status.StatusValue = option.id;
+            this.inputFilter.status.visible = false;
+            this.getQuery();
+        },
     }
 }
 </script>
 
 <style scoped>
+.is-selected {
+    background-color: #6b6f9d;
+    color: white;
+}
 </style>

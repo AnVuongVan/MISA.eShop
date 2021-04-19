@@ -8,7 +8,7 @@
                     <span>Thêm mới</span>
                 </button>
 
-                <button class="item-toolbar item-toolbar-replication">
+                <button class="item-toolbar item-toolbar-replication" @click="replicateStore">
                     <div class="img img-replication"></div>
                     <span>Nhân bản</span>
                 </button>
@@ -46,10 +46,7 @@
                     <StoreFilter />
                     <tbody>
                         <tr v-for="store in allStores" :key="store.StoreId" @click="selectedRow(store)"
-                        @dblclick="onDoubleClick(store)" :class="{'row-selected': store.StoreId === storeId }">
-                            <td>
-                                <input type="checkbox" @change="getChecked(store.StoreId, $event)"/>
-                            </td>
+                        @dblclick="onDoubleClick(store)" :class="{'row-selected': store.StoreId === storeId }">                          
                             <td v-text="store.StoreCode"></td>
                             <td v-text="store.StoreName"></td>
                             <td v-text="store.Address"></td>
@@ -74,7 +71,7 @@
         </span>
 
         <span v-if="statusShowPopup">
-            <Popup @statusPopup="statusPopup" @isDeleted="isDeleted" :listIds="listIds" />
+            <Popup @statusPopup="statusPopup" @isDeleted="isDeleted" :storeId="storeId" />
         </span>
     </div>
 </template>
@@ -100,7 +97,6 @@ export default{
             statusListDetail: false,
             statusShowPopup: false,
             item: {},
-            listIds: [],
             storeId: ''
         }
     },
@@ -119,9 +115,9 @@ export default{
             this.statusShowPopup = params;
         },
         isDeleted(params) {
-            //Nếu xóa thành công -> set list rỗng
+            //Nếu xóa thành công -> set storeId
             if (params) {
-                this.listIds = [];
+                this.storeId = this.$store.state.stores.stores[0].StoreId;
             }
         },
         //Hàm edit store
@@ -136,22 +132,18 @@ export default{
         },
         //Hàm thực hiện xóa store
         removeStore() {
-            if (this.listIds.length !== 0) {
+            if (this.storeId) {
                 this.statusShowPopup = true;
             } else {
                 alert('Bạn chưa chọn bản ghi nào để xóa!');
             }
         },
-        //Bắt sự kiện checkbox clicked
-        getChecked(id, e) {
-            if (e.target.checked) {
-                this.listIds.push(id);
-            } else {
-                let position = this.listIds.indexOf(id);
-                if (position !== -1) {
-                    this.listIds.splice(position, 1);
-                }
-            }
+        //Hàm thực hiện nhân bản store
+        replicateStore() {
+            if (this.storeId) {
+                delete this.item.StoreId;
+                this.statusListDetail = !this.statusListDetail;
+            } 
         },
         //Highlight hàng được chọn
         selectedRow(store) {
@@ -165,5 +157,15 @@ export default{
     created() {    
         this.fetchStores();
     },
+    updated() {
+        this.storeId = this.$store.state.stores.stores[0].StoreId;
+        this.$store.dispatch('fetchOneStore', this.storeId)
+            .then(res => {
+                this.item = Object.assign({}, res);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
 }
 </script>

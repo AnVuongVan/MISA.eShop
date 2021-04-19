@@ -67,7 +67,7 @@
                                     <input type="text" v-model='administrativeUnit.CountryName'
                                         @input="onChangeCountry" placeholder="Nhập để tìm kiếm">
 
-                                    <ul class="select-options" v-if="administrativeUnit.country">
+                                    <ul class="select-options" v-if="administrativeUnit.StatusCountry">
                                         <li v-for="country in allCountries" :key="country.CountryId" 
                                             @click="selectCountry(country)" 
                                             :class="{'is-selected': formData.CountryId == country.CountryId }"
@@ -75,7 +75,7 @@
                                         </li>                                       
                                     </ul>
                                 </div>
-                                <span class="icon-arrow" @click="administrativeUnit.country = !administrativeUnit.country"></span>
+                                <span class="icon-arrow" @click="administrativeUnit.StatusCountry = !administrativeUnit.StatusCountry"></span>
                             </div>
                         </div>
             
@@ -86,7 +86,7 @@
                                     <input type="text" v-model="administrativeUnit.ProvinceName"
                                         @input="onChangeProvince" placeholder="Nhập để tìm kiếm">
 
-                                    <ul class="select-options" v-if="administrativeUnit.province">
+                                    <ul class="select-options" v-if="administrativeUnit.StatusProvince">
                                         <li v-for="province in allProvinces" :key="province.ProvinceId" 
                                             @click="selectProvince(province)" 
                                             :class="{'is-selected': formData.ProvinceId == province.ProvinceId }"
@@ -94,7 +94,7 @@
                                         </li>                                       
                                     </ul>
                                 </div>
-                                <span class="icon-arrow" @click="administrativeUnit.province = !administrativeUnit.province"></span>
+                                <span class="icon-arrow" @click="administrativeUnit.StatusProvince = !administrativeUnit.StatusProvince"></span>
                             </div>
 
                             <div class="half-children-input right-child">
@@ -103,7 +103,7 @@
                                     <input type="text" v-model="administrativeUnit.DistrictName" 
                                         @input="onChangeDistrict" placeholder="Nhập để tìm kiếm">
 
-                                    <ul class="select-options" v-if="administrativeUnit.district">
+                                    <ul class="select-options" v-if="administrativeUnit.StatusDistrict">
                                         <li v-for="district in allDistricts" :key="district.DistrictId" 
                                             @click="selectDistrict(district)" 
                                             :class="{'is-selected': formData.DistrictId == district.DistrictId }"
@@ -111,7 +111,7 @@
                                         </li>                                       
                                     </ul>
                                 </div>
-                                <span class="icon-arrow" @click="administrativeUnit.district = !administrativeUnit.district"></span>
+                                <span class="icon-arrow" @click="administrativeUnit.StatusDistrict = !administrativeUnit.StatusDistrict"></span>
                             </div>
                         </div>
             
@@ -122,7 +122,7 @@
                                     <input type="text" v-model="administrativeUnit.WardName" 
                                     @input="onChangeWard" placeholder="Nhập để tìm kiếm">
 
-                                    <ul class="select-options" v-if="administrativeUnit.ward">
+                                    <ul class="select-options" v-if="administrativeUnit.StatusWard">
                                         <li v-for="ward in allWards" :key="ward.WardId" 
                                             @click="selectWard(ward)" @input="onChangeWard"
                                             :class="{'is-selected': formData.WardId == ward.WardId }"
@@ -130,7 +130,7 @@
                                         </li>                                       
                                     </ul>
                                 </div>
-                                <span class="icon-arrow" @click="administrativeUnit.ward = !administrativeUnit.ward"></span>
+                                <span class="icon-arrow" @click="administrativeUnit.StatusWard = !administrativeUnit.StatusWard"></span>
                             </div>
             
                             <div class="half-children-input right-child">
@@ -181,6 +181,7 @@
 import MISACode from '../../store/constant/code'
 import PropertyName from '../../store/constant/property'
 import { mapGetters, mapActions } from 'vuex';
+import axios from 'axios'
 
 export default{
     name: 'StoreListDetail',
@@ -213,13 +214,13 @@ export default{
                 Address: PropertyName.UN_ACTIVE
             },
             administrativeUnit: {
-                country: false,
+                StatusCountry: false,
                 CountryName: '',
-                province: false,
+                StatusProvince: false,
                 ProvinceName: '',
-                district: false, 
+                StatusDistrict: false, 
                 DistrictName: '',
-                ward: false,
+                StatusWard: false,
                 WardName: '',
             }
         }
@@ -257,6 +258,16 @@ export default{
                         case MISACode.SUCCESS:  
                             if (action === MISACode.SAVE_CONTINUE) {
                                 this.formData = {};
+                                this.administrativeUnit = {
+                                    StatusCountry: false,
+                                    CountryName: '',
+                                    StatusProvince: false,
+                                    ProvinceName: '',
+                                    StatusDistrict: false, 
+                                    DistrictName: '',
+                                    StatusWard: false,
+                                    WardName: '',
+                                };
                                 this.title = PropertyName.CREATE_STORE;
                                 this.status = PropertyName.UN_ACTIVE;
                                 this.$refs.StoreCode.focus();
@@ -295,7 +306,7 @@ export default{
         },
         //Bắt sự kiện khi select chọn quốc gia
         onChangeCountry() { 
-            this.administrativeUnit.country = true;
+            this.administrativeUnit.StatusCountry = true;
             let countryName = this.administrativeUnit.CountryName.toLowerCase();
             if (countryName) {
                 let result = this.allCountries.filter(
@@ -308,7 +319,7 @@ export default{
         },
         //Bắt sự kiện khi select chọn tỉnh/thành phố
         onChangeProvince() {
-            this.administrativeUnit.province = true;
+            this.administrativeUnit.StatusProvince = true;
             let provinceName = this.administrativeUnit.ProvinceName.toLowerCase();
             if (provinceName) {
                 let result = this.allProvinces.filter(
@@ -321,7 +332,7 @@ export default{
         },
         //Bắt sự kiện khi select chọn quận/huyện
         onChangeDistrict() {
-            this.administrativeUnit.district = true;
+            this.administrativeUnit.StatusDistrict = true;
             let districtName = this.administrativeUnit.DistrictName.toLowerCase();
             if (districtName) {
                 let result = this.allDistricts.filter(
@@ -332,8 +343,9 @@ export default{
                 this.$store.dispatch('fetchDistricts');
             }
         },
+        //Bắt sự kiện khi select chọn phường/xã
         onChangeWard() {
-            this.administrativeUnit.ward = true;
+            this.administrativeUnit.StatusWard = true;
             let wardName = this.administrativeUnit.WardName.toLowerCase();
             if (wardName) {
                 let result = this.allWards.filter(
@@ -419,13 +431,11 @@ export default{
         selectAdministrativeUnit(Unit, unit) {
             let UnitName = Unit.concat('Name');
             let UnitId = Unit.concat('Id');
+            let StatusUnit = 'Status'.concat(Unit);
 
             this.formData[UnitId] = unit[UnitId];
-            this.administrativeUnit[this.lowerCaseLetter(Unit)] = !this.administrativeUnit[this.lowerCaseLetter(Unit)];
+            this.administrativeUnit[StatusUnit] = false;
             this.administrativeUnit[UnitName] = unit[UnitName];
-        },
-        lowerCaseLetter(str) {
-            return str.charAt(0).toLowerCase() + str.slice(1);
         }
     },
     computed: {
@@ -435,11 +445,14 @@ export default{
         //set value cho form data khi update
         this.formData = Object.assign({}, this.store);
 
-        if (this.formData.StoreCode) {
+        if (this.formData.StoreId) {
             this.title = PropertyName.UPDATE_STORE;
             this.status = PropertyName.ACTIVE;
         } else {
             this.title = PropertyName.CREATE_STORE;
+            if (this.formData.StoreCode) {
+                this.title = PropertyName.REPLICATE_STORE;
+            }
             this.status = PropertyName.UN_ACTIVE;
         }
     },
@@ -448,6 +461,49 @@ export default{
 
         //auto focus vào ô store code
         this.$refs.StoreCode.focus();
+
+        //show administrative unit when edit store
+        this.$nextTick(() => {  
+            if (this.formData.CountryId) {
+                axios.get('http://localhost:62509/api/v1/countries/' + this.formData.CountryId)
+                    .then(res => {                   
+                        this.selectCountry(res.data);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }          
+            
+            if (this.formData.ProvinceId) {
+                axios.get('http://localhost:62509/api/v1/provinces/' + this.formData.ProvinceId)
+                    .then(res => {                   
+                        this.selectProvince(res.data);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+            
+            if (this.formData.DistrictId) {
+                axios.get('http://localhost:62509/api/v1/districts/' + this.formData.DistrictId)
+                    .then(res => {                   
+                        this.selectDistrict(res.data);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+            
+            if (this.formData.WardId) {
+                axios.get('http://localhost:62509/api/v1/wards/' + this.formData.WardId)
+                    .then(res => {                   
+                        this.selectWard(res.data);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }     
+        });
     }
 }
 </script>

@@ -32,18 +32,18 @@ import axios from 'axios'
 
 export default ({
     name: 'Popup',
-    props: ['listIds'],
+    props: ['storeId'],
     data() {
         return {
-            storeName: 'với nhiều bản ghi',
-            storeCode: 'đã chọn'
+            storeName: '',
+            storeCode: ''
         }
     },
     methods: {
         ...mapActions(['deleteStore']),
         //Hàm xóa cửa hàng
         removeStore() { 
-            this.listIds.forEach(id => this.deleteStore(id));
+            this.deleteStore(this.storeId);
             this.$emit('isDeleted', true);  
             this.$emit("statusPopup", false); 
         },
@@ -53,8 +53,7 @@ export default ({
     },
     created() {
         //Lấy thông tin chi tiết của cửa hàng cần xóa
-        if (this.listIds.length == 1) {
-            axios.get('http://localhost:62509/api/v1/stores/' + this.listIds[0])
+        axios.get('http://localhost:62509/api/v1/stores/' + this.storeId)
             .then(response => {
                 this.storeName = response.data.StoreName;
                 this.storeCode = response.data.StoreCode;
@@ -62,7 +61,6 @@ export default ({
             .catch(err => {
                 console.log(err);
             })
-        }
     }
 })
 </script>
